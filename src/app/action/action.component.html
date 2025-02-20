@@ -1,0 +1,13 @@
+<div class="divpadding">
+  <button type="button" (click)="increase()" class="increasebutton">+</button>
+  <input class="numbertextbox" type="text" [value]="value" *ngIf="changeinput else textinput">
+  <ng-template #textinput>
+    <span style="font-size: 40px;
+                font-weight: bold;
+                margin-left: 5px;
+                margin-right: 5px;">
+      {{value}}
+    </span>
+  </ng-template>
+  <button type="button" (click)="decrease()" class="decreasebutton">-</button>
+</div>

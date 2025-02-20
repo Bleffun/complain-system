@@ -1,0 +1,16 @@
+<div class="form">
+  <div class="dx-fieldset">
+<div class="dx-field">
+  <div class="dx-field-label">{{textout}}</div>
+  <div class="dx-field-value">
+    <dx-text-box
+      placeholder="กรุณากรอกค่าเงิน"
+      [inputAttr]="{ 'aria-label': 'Money' }"
+      #taxs
+    >
+  </dx-text-box>
+    </div>
+    <dx-button class="calbutton" (click)="taxcalculate(taxs.value)">
+      <i class="dx-icon dx-icon-money iconcal">คำนวณ</i></dx-button>
+  </div>
+  </div>

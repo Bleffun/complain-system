@@ -1,0 +1,62 @@
+<div style="padding: 10px;" align="end">
+  <dx-button class="addbutton " (click)="popupVisibleadd=true">
+    <i class="dx-icon dx-icon-plus fontcolor">เพิ่มข้อมูล</i>
+  </dx-button>
+</div>
+<div>
+  <dx-data-grid id="gridContainer" [dataSource]="stddata" keyExpr="STD_ID" [showBorders]="true">
+    <dxi-column caption="รหัสนักเรียน" dataField="STD_ID"></dxi-column>
+    <dxi-column caption="ชื่อ" dataField="STD_FNAME"></dxi-column>
+    <dxi-column caption="สกุล" dataField="STD_LNAME"></dxi-column>
+    <dxi-column caption="เกรด" dataField="RECORD_STATUS"></dxi-column>
+    <dxi-column cellTemplate="cellTemplate">
+      <div *dxTemplate="let data of 'cellTemplate'">
+        <dx-button class="editbutton" (click)="searchstd(data)">
+          <i class="dx-icon dx-icon-edit fontcolor">แก้ไข</i>
+        </dx-button>
+        &nbsp;
+        <dx-button class="deletebutton" (click)="deletestd(data)">
+          <i class="dx-icon dx-icon-trash iconcal fontcolor">ลบ</i>
+        </dx-button>
+      </div>
+    </dxi-column>
+
+  </dx-data-grid>
+  <dx-popup [width]="660" [height]="540" [showTitle]="true" [title]="''" [dragEnabled]="false"
+    [hideOnOutsideClick]="true" [(visible)]="popupVisibleEdit" [showCloseButton]="true">
+    <div *dxTemplate="let data of 'content'">
+      <div class="popup-property-details">
+        <div class="large-text">
+          แก้ไขข้อมูล
+        </div>
+        <dx-form id="form" [formData]="searchstddata3">
+          <dxi-item dataField="STD_ID" [visible]="false"><dxo-label text="รหัส"></dxo-label></dxi-item>
+          <dxi-item dataField="STD_FNAME"><dxo-label text="ชื่อ"></dxo-label></dxi-item>
+          <dxi-item dataField="STD_LNAME"><dxo-label text="นามสกุล"></dxo-label></dxi-item>
+          <dxi-item dataField="RECORD_STATUS" [visible]="false"><dxo-label text="เกรด"></dxo-label></dxi-item>
+
+        </dx-form>
+
+        <dx-button class="editbutton" icon="" (onClick)="editdata()">
+          <i class="dx-icon dx-icon-edit fontcolor">ยืนยัน</i>
+        </dx-button>
+      </div>
+    </div>
+  </dx-popup>
+  <dx-popup [width]="660" [height]="540" [showTitle]="true" [title]="''" [dragEnabled]="false"
+    [hideOnOutsideClick]="true" [(visible)]="popupVisibleadd" [showCloseButton]="true">
+    <div *dxTemplate="let data of 'content'">
+      <div class="popup-property-details">
+        <div class="large-text">
+          เพิ่มข้อมูล
+        </div>
+        <dx-form id="form" [formData]="adddatastd">
+          <dxi-item dataField="STD_FNAME"><dxo-label text="ชื่อ"></dxo-label></dxi-item>
+          <dxi-item dataField="STD_LNAME"><dxo-label text="นามสกุล"></dxo-label></dxi-item>
+        </dx-form>
+        <dx-button class="addbutton" (click)="addstd()"><i
+            class="dx-icon dx-icon-plus fontcolor">เพิ่มข้อมูล</i></dx-button>
+      </div>
+    </div>
+  </dx-popup>
+</div>

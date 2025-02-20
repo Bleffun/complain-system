@@ -1,0 +1,11 @@
+.calbutton {
+
+    background: green;
+    width: 100px;
+    height: 40px;
+    align-self: center;
+}
+.iconcal{
+  color: white;
+}
+

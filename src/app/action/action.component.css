@@ -1,0 +1,19 @@
+.increasebutton{
+  background-color: green;
+  color:white;
+  width:40px;
+  height:40px;
+}
+.decreasebutton{
+  background-color: red;
+  color:white;
+  width:40px;
+  height:40px;
+}
+.numbertextbox{
+  width:200px;
+  height:40px;
+}
+.divpadding{
+  padding: 10px;
+}
