@@ -3,25 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { DxHttpModule } from 'devextreme-angular/http';
 import { SideNavOuterToolbarModule, SideNavInnerToolbarModule, SingleCardModule } from './layouts';
-import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangePasswordFormModule, LoginFormModule } from './shared/components';
 import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
-import { TestPopupComponent } from './test-popup/test-popup.component';
-import { DxButtonModule, DxCircularGaugeModule, DxDataGridComponent, DxDataGridModule, DxFormModule, DxPopupModule, DxTemplateModule, DxTextBoxComponent, DxTextBoxModule } from 'devextreme-angular';
-import { CalculateComponent } from './Calculate/Calculate.component';
+import { DxButtonModule, DxCircularGaugeModule, DxDataGridComponent, DxDataGridModule, DxFormModule, DxLoadPanelModule, DxPopupModule, DxTemplateModule, DxTextBoxComponent, DxTextBoxModule } from 'devextreme-angular';
 import { ActionComponent } from './action/action.component';
-import { TanagornComponent } from './tanagorn/tanagorn.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { FooterModule, LoginFormModule } from './shared/components';
+import { TaskListComponent } from './pages/Task-list/Task-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-      TestPopupComponent,
-      CalculateComponent,
-      ActionComponent,
-      TanagornComponent,
-   ],
+    ActionComponent,
+    TaskListComponent,
+  ],
   imports: [
     BrowserModule,
     DxHttpModule,
@@ -29,15 +25,12 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     SideNavInnerToolbarModule,
     SingleCardModule,
     FooterModule,
-    ResetPasswordFormModule,
-    CreateAccountFormModule,
-    ChangePasswordFormModule,
     LoginFormModule,
     UnauthenticatedContentModule,
     AppRoutingModule,
     DxButtonModule,
     DxPopupModule,
-
+    DxLoadPanelModule,
     DxDataGridModule,
     DxTemplateModule,
     DxTextBoxModule,

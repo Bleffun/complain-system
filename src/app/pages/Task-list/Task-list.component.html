@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <h2 class="text-defult fw-bold mt-0" style="color: #B21E35;">{{ 'งานของฉัน' }}</h2>
+  <div class="card">
+      <div class="mt-3">
+          <dx-data-grid #grid [dataSource]="_myTaskList" [showColumnLines]="true"
+              noDataText="{{ 'ไม่มีข้อมูล' }}" [showRowLines]="true" [showBorders]="true"
+              [rowAlternationEnabled]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]"
+              [wordWrapEnabled]="true" [columnAutoWidth]="true">
+              <dxo-search-panel [visible]="true" [width]="320"
+                  placeholder="{{ 'ค้นหา...' }}"></dxo-search-panel>
+              <dxo-editing mode="cell" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false">
+              </dxo-editing>
+              <dxo-pager [showPageSizeSelector]="true" displayMode="compact" [allowedPageSizes]="[10, 20, 50]"
+                  [showInfo]="true"
+                  infoText="{{'แสดงผลหน้าที่ {0} ถึง {1} (จากทั้งหมด {2} รายการ)'}}"></dxo-pager>
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+              <dxo-load-panel text="{{ 'กำลังดึงข้อมูล ...' }}"></dxo-load-panel>
+              <dxi-column caption=" " alignment="center" [width]="75" cellTemplate="actionCellTemplate">
+                  <div *dxTemplate="let cell of 'actionCellTemplate'">
+                      <dx-button class="btn-edit-icon" (onClick)="Edit(cell.data)"></dx-button>
+                  </div>
+              </dxi-column>
+              <dxi-column caption="{{ 'ลำดับ' }}" alignment="center" [allowEditing]="false"
+                  cellTemplate="orderCellTemplate" [width]="80">
+                  <div *dxTemplate="let cell of 'orderCellTemplate'">
+                      {{ cell.component.pageIndex() * cell.component.pageSize() + cell.rowIndex + 1 }}
+                  </div>
+              </dxi-column>
+              <dxi-column dataField="REGIS_BUDGET_YEAR" caption="{{ 'ปีงบประมาณ' }}" alignment="center" [width]="130">
+              </dxi-column>
+              <dxi-column dataField="STATUS_NAME" [minWidth]="200"  caption="{{ 'ขั้นตอน' }}" alignment="center">
+              </dxi-column>
+              <dxi-column dataField="SUB_STATUS_NAME" [minWidth]="200"  caption="{{ 'สถานะ' }}" alignment="center">
+              </dxi-column>
+
+              <dxi-column dataField="REGIS_CODE" [width]="200" caption="{{ 'รหัสเรื่อง' }}" alignment="center">
+              </dxi-column>
+              <dxi-column [minWidth]="300" dataField="SUBJ_NAME" caption="{{ 'ชื่อเรื่อง' }}" alignment="center">
+              </dxi-column>
+
+              <dxi-column dataField="BPM_CREATE_DATE" [width]="170" caption="{{ 'วันที่เริ่มดำเนินการ' }}"
+                  alignment="center" cellTemplate="CellTemplate2">
+                  <div *dxTemplate="let cell of 'CellTemplate2'">
+                      {{cell.data.BPM_CREATE_DATE_NAME}}
+                  </div>
+              </dxi-column>
+
+              <dxi-column dataField="BPM_FINNISH_DATE" [width]="170" caption="{{ 'วันที่ครบกำหนด' }}" alignment="center"
+                  cellTemplate="CellTemplate3">
+                  <div *dxTemplate="let cell of 'CellTemplate3'">
+                      {{cell.data.BPM_FINNISH_DATE_NAME}}
+                  </div>
+              </dxi-column>
+          </dx-data-grid>
+      </div>
+  </div>
+</div>
+
+
+<dx-load-panel shadingColor="rgba(0,0,0,0.4)" [visible]="_isLoading" [showIndicator]="true" [showPane]="true"
+  [shading]="true" [closeOnOutsideClick]="false" message="{{ 'กำลังโหลดข้อมูล...' }}"
+  shadingColor="rgba(0, 0, 0, 0.2)">
+</dx-load-panel>
