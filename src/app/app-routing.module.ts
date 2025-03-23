@@ -1,60 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginFormComponent, ResetPasswordFormComponent, CreateAccountFormComponent, ChangePasswordFormComponent } from './shared/components';
 import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
-import { TestPopupComponent } from './test-popup/test-popup.component';
-import { TanagornComponent } from './tanagorn/tanagorn.component';
-import { CalculateComponent } from './Calculate/Calculate.component';
+import { LoginFormComponent } from './shared/components';
 
 const routes: Routes = [
   {
-    path: 'calculate',
-    component: CalculateComponent,
-    canActivate: [ AuthGuardService ]
+    path: "", canActivate: [AuthGuardService],
+    children: [
+
+    ]
   },
-  {
-    path: 'tanagorn',
-    component: TanagornComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'login-form',
-    component: LoginFormComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'reset-password',
-    component: ResetPasswordFormComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'create-account',
-    component: CreateAccountFormComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'change-password/:recoveryCode',
-    component: ChangePasswordFormComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'popup',
-    component: TestPopupComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: '**',
-    redirectTo: 'home'
-  }
+  { path: 'login-form', component: LoginFormComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({
