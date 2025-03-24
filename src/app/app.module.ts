@@ -11,12 +11,14 @@ import { ActionComponent } from './action/action.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { FooterModule, LoginFormModule } from './shared/components';
 import { TaskListComponent } from './pages/Task-list/Task-list.component';
+import { GuestPagesComponent } from './pages/guest-pages/guest-pages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ActionComponent,
     TaskListComponent,
+    GuestPagesComponent,
   ],
   imports: [
     BrowserModule,
