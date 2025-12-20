@@ -22,7 +22,7 @@ export class UserPanelComponent {
   user!: IUser | null;
 
   constructor() {}
-  uemail ='tanagornjit@gmail.com';
+  // uemail ='tanagornjit@gmail.com';
 }
 
 @NgModule({

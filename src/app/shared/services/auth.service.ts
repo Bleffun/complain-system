@@ -2,15 +2,10 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 
 export interface IUser {
-  email: string;
-  avatarUrl?: string;
 }
 
 const defaultPath = '/';
-const defaultUser = {
-  email: 'tanagornjit@gmail.com',
-  // avatarUrl: 'https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/images/employees/06.png'
-};
+const defaultUser = {};
 
 @Injectable()
 export class AuthService {
@@ -18,7 +13,6 @@ export class AuthService {
   get loggedIn(): boolean {
     return !!this._user;
   }
-
   private _lastAuthenticatedPath: string = defaultPath;
   set lastAuthenticatedPath(value: string) {
     this._lastAuthenticatedPath = value;
