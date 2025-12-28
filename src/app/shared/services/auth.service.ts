@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { CallApiService } from './CallApi.service';
+import LocalStore from 'devextreme/data/local_store';
 
 export interface IUser {
 }
@@ -10,6 +12,10 @@ const defaultUser = {};
 @Injectable()
 export class AuthService {
   private _user: IUser | null = defaultUser;
+  checkData : any = {};
+  if(_user = null){
+    this.logOut();
+  }
   get loggedIn(): boolean {
     return !!this._user;
   }
@@ -18,13 +24,18 @@ export class AuthService {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private CallApi:CallApiService) { }
 
-  async logIn(email: string, password: string) {
-
+  async logIn(username: string, password: string) {
     try {
       // Send request
-      this._user = { ...defaultUser, email };
+      this.checkData = await this.CallApi.getUser(username).toPromise();
+      this.checkData = this.checkData[0];
+      if((this.checkData.USER_NAME == username)&&(this.checkData.USER_PASS == password)){
+        this._user = { ...this.checkData };
+        sessionStorage.setItem('',this.checkData);
+      }
+
       this.router.navigate([this._lastAuthenticatedPath]);
 
       return {

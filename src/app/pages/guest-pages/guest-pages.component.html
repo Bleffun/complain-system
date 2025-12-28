@@ -1,0 +1,24 @@
+<div class="container">
+          <div class="grid-container"  *ngIf="index === 0">
+              <div *ngFor="let item of dataList" class="card" style="border: 2px solid #a91111; cursor: pointer;"
+                  (click)="SelectChange(item)">
+                  <h3 class="card-title">{{ item.title }}</h3>
+              </div>
+          </div>
+
+
+          <div *ngIf="index > 0">
+
+              <div *ngIf="index === 1">
+
+              </div>
+              <div *ngIf="index === 2">
+
+              </div>
+          </div>
+
+
+</div>
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [visible]="_isLoading" [showIndicator]="true" [showPane]="true"
+  [shading]="true" [closeOnOutsideClick]="false" message="กรุณารอสักครู่..." shadingColor="rgba(0, 0, 0, 0.2)">
+</dx-load-panel>
