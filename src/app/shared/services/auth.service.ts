@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { CallApiService } from './CallApi.service';
-import LocalStore from 'devextreme/data/local_store';
 
-export interface IUser {
-}
+
 
 const defaultPath = '/';
-const defaultUser = {};
 
 @Injectable()
 export class AuthService {
-  private _user: IUser | null = defaultUser;
+  private _user = sessionStorage.getItem('fullname') || null;
   checkData : any = {};
   if(_user = null){
     this.logOut();
@@ -27,34 +24,32 @@ export class AuthService {
   constructor(private router: Router,private CallApi:CallApiService) { }
 
   async logIn(username: string, password: string) {
-    try {
       // Send request
       this.checkData = await this.CallApi.getUser(username).toPromise();
       this.checkData = this.checkData[0];
       if((this.checkData.USER_NAME == username)&&(this.checkData.USER_PASS == password)){
-        this._user = { ...this.checkData };
-        sessionStorage.setItem('',this.checkData);
+        this._user = { ...this.checkData};
+        sessionStorage.setItem('username',this.checkData.USER_NAME);
+        sessionStorage.setItem('fullname',this.checkData.USER_FULLNAME);
+      }else{
+        return {
+        isOk: false,
+        message: "Username หรือ รหัสผ่านไม่ถูกต้อง"
+      };
       }
-
+      window.location.reload();
       this.router.navigate([this._lastAuthenticatedPath]);
 
       return {
         isOk: true,
         data: this._user
       };
-    }
-    catch {
-      return {
-        isOk: false,
-        message: "Authentication failed"
-      };
-    }
+
   }
 
   async getUser() {
     try {
       // Send request
-
       return {
         isOk: true,
         data: this._user
@@ -119,6 +114,7 @@ export class AuthService {
 
   async logOut() {
     this._user = null;
+    sessionStorage.clear();
     this.router.navigate(['/login-form']);
   }
 }

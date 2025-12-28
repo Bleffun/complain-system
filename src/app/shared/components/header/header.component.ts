@@ -1,7 +1,7 @@
 import { Component, NgModule, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AuthService, IUser } from '../../services';
+import { AuthService} from '../../services';
 import { UserPanelModule } from '../user-panel/user-panel.component';
 import { DxButtonModule } from 'devextreme-angular/ui/button';
 import { DxToolbarModule } from 'devextreme-angular/ui/toolbar';
@@ -22,9 +22,7 @@ export class HeaderComponent implements OnInit {
 
   @Input()
   title!: string;
-
-  user: IUser | null = { email: '' };
-
+  user = '';
   userMenuItems = [{
     text: 'Profile',
     icon: 'user',
@@ -43,7 +41,8 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.getUser().then((e) => this.user = e.data);
+    this.user = sessionStorage.getItem('fullname') || '';
+    this.authService.getUser().then((e) => this.user = e.data || '');
   }
 
   toggleMenu = () => {

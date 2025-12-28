@@ -21,8 +21,6 @@ export class LoginFormComponent {
     e.preventDefault();
     const { username, password } = this.formData;
     this.loading = true;
-
-
     const result = await this.authService.logIn(username, password);
     if (!result.isOk) {
       this.loading = false;
