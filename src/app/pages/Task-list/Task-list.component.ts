@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CallApiService } from '../../shared/services/CallApi.service';
 
 @Component({
   selector: 'app-Task-list',
@@ -6,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./Task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  _myTaskList = [];
+  _myTaskList:any = [];
   _isLoading = false;
-  constructor() { }
+  sesUID :any;
+  constructor(private CallApi: CallApiService) { }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    this.sesUID = sessionStorage.getItem('userID');
+    this._myTaskList = await this.CallApi.getTask(this.sesUID).toPromise();
   }
   Edit(e:any){
 

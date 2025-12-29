@@ -13,6 +13,9 @@ constructor(private http:HttpClient) { }
   public getUser(username:any){
     return this.http.get<any[]>(this.urlapi+username+"/CheckUser");
   }
+  public getTask(userID:any){
+    return this.http.get<any[]>(this.urlapi+userID+"/complain");
+  }
   public addComplain(data:any){
     return this.http.post<any[]>(this.urlapi,data,{ headers: this.headers });
   }

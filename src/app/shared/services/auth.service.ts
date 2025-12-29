@@ -28,9 +28,10 @@ export class AuthService {
       this.checkData = await this.CallApi.getUser(username).toPromise();
       this.checkData = this.checkData[0];
       if((this.checkData.USER_NAME == username)&&(this.checkData.USER_PASS == password)){
-        this._user = { ...this.checkData};
         sessionStorage.setItem('username',this.checkData.USER_NAME);
         sessionStorage.setItem('fullname',this.checkData.USER_FULLNAME);
+        sessionStorage.setItem('role',this.checkData.ROLE_NAME);
+        sessionStorage.setItem('userID',this.checkData.USER_ID);
       }else{
         return {
         isOk: false,
@@ -129,7 +130,8 @@ export class AuthGuardService implements CanActivate {
       'login-form',
       'reset-password',
       'create-account',
-      'change-password/:recoveryCode'
+      'change-password/:recoveryCode',
+      'guest-form'
     ].includes(route.routeConfig?.path || defaultPath);
 
     if (isLoggedIn && isAuthForm) {
