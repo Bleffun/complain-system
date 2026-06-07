@@ -28,29 +28,20 @@
                       {{ cell.component.pageIndex() * cell.component.pageSize() + cell.rowIndex + 1 }}
                   </div>
               </dxi-column>
-              <dxi-column dataField="REGIS_BUDGET_YEAR" caption="{{ 'ปีงบประมาณ' }}" alignment="center" [width]="130">
-              </dxi-column>
               <dxi-column dataField="STATUS_NAME" [minWidth]="200"  caption="{{ 'ขั้นตอน' }}" alignment="center">
               </dxi-column>
-              <dxi-column dataField="SUB_STATUS_NAME" [minWidth]="200"  caption="{{ 'สถานะ' }}" alignment="center">
+              <dxi-column dataField="COM_STATUS" [minWidth]="200"  caption="{{ 'สถานะ' }}" alignment="center">
               </dxi-column>
 
-              <dxi-column dataField="REGIS_CODE" [width]="200" caption="{{ 'รหัสเรื่อง' }}" alignment="center">
+              <dxi-column dataField="COM_ID" [width]="200" caption="{{ 'รหัสเรื่อง' }}" alignment="center">
               </dxi-column>
-              <dxi-column [minWidth]="300" dataField="SUBJ_NAME" caption="{{ 'ชื่อเรื่อง' }}" alignment="center">
+              <dxi-column [minWidth]="300" dataField="COM_NAME" caption="{{ 'ชื่อเรื่อง' }}" alignment="center">
               </dxi-column>
 
-              <dxi-column dataField="BPM_CREATE_DATE" [width]="170" caption="{{ 'วันที่เริ่มดำเนินการ' }}"
+              <dxi-column dataField="DATETH" [width]="170" caption="{{ 'วันที่เริ่มดำเนินการ' }}"
                   alignment="center" cellTemplate="CellTemplate2">
                   <div *dxTemplate="let cell of 'CellTemplate2'">
-                      {{cell.data.BPM_CREATE_DATE_NAME}}
-                  </div>
-              </dxi-column>
-
-              <dxi-column dataField="BPM_FINNISH_DATE" [width]="170" caption="{{ 'วันที่ครบกำหนด' }}" alignment="center"
-                  cellTemplate="CellTemplate3">
-                  <div *dxTemplate="let cell of 'CellTemplate3'">
-                      {{cell.data.BPM_FINNISH_DATE_NAME}}
+                      {{ cell.data.DATETH }}
                   </div>
               </dxi-column>
           </dx-data-grid>

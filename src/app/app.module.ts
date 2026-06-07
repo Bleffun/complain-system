@@ -13,6 +13,9 @@ import { FooterModule, LoginFormModule } from './shared/components';
 import { TaskListComponent } from './pages/Task-list/Task-list.component';
 import { GuestPagesComponent } from './pages/guest-pages/guest-pages.component';
 import { HttpClientModule } from '@angular/common/http';
+import {registerLocaleData} from '@angular/common';
+import localeTh from '@angular/common/locales/th';
+registerLocaleData(localeTh);
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     AuthService,
     ScreenService,
     AppInfoService,
+    { provide: localeTh, useValue: 'th-TH' }
   ],
   bootstrap: [AppComponent]
 })
