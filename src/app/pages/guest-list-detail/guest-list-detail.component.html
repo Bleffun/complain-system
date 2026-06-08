@@ -1,0 +1,102 @@
+<div class="grid-container" *ngIf="index === 0">
+  <div class="container-fluid">
+    <div class="mt-3">
+      <div class="card">
+        <dx-button
+          class="btn-back"
+          text="ย้อนกลับ"
+          (onClick)="OnBack(_formdata.COM_IDCARD)"
+        ></dx-button>
+        <dx-form
+          [formData]="_formdata"
+          [colCount]="2"
+          labelLocation="top"
+          style="width: 98%; margin: auto; padding-top: 10px"
+        >
+          <dxi-item [colSpan]="2">
+            <dxo-label text="หัวข้อที่ร้องเรียน"></dxo-label>
+            <dxi-validation-rule
+              type="required"
+              message="กรุณากรอกหัวข้อ"
+            ></dxi-validation-rule>
+            <dx-text-box
+              [readOnly]="true"
+              [(value)]="_formdata.COM_NAME"
+            ></dx-text-box>
+          </dxi-item>
+          <dxi-item [colSpan]="2">
+            <dxo-label text="รหัสบัตรประชาชน"></dxo-label>
+            <dxi-validation-rule
+              type="required"
+              message="กรุณากรอกบัตรประชาชน"
+            ></dxi-validation-rule>
+            <dx-text-box
+              [readOnly]="true"
+              [(value)]="_formdata.COM_IDCARD"
+            ></dx-text-box>
+          </dxi-item>
+          <dxi-item [colSpan]="2">
+            <dxo-label text="รายละเอียด"></dxo-label>
+            <dx-text-area
+              [readOnly]="true"
+              [(value)]="_formdata.COM_DETAIL"
+            ></dx-text-area>
+          </dxi-item>
+          <dxi-item [colSpan]="2">
+            <dxo-label text="ผู้กระทำความผิด"></dxo-label>
+            <dx-select-box
+              [dataSource]="_selectUser"
+              valueExpr="USER_ID"
+              displayExpr="USER_FULLNAME"
+              [readOnly]="true"
+              [(value)]="_formdata.USER_ID"
+            ></dx-select-box>
+          </dxi-item>
+          <dxi-item [colSpan]="2">
+            <dxo-label
+              text="รูปลักษณ์ผู้กระทำผิด(กรณีไม่รู้ชื่อผู้กระทำ)"
+            ></dxo-label>
+            <dx-text-area
+              [readOnly]="true"
+              [(value)]="_formdata.COM_USER_DETAIL"
+            ></dx-text-area>
+          </dxi-item>
+          <dxi-item label="รูปภาพแนบ" template="imageTemplate" [colSpan]="2">
+        </dxi-item>
+
+        <div *dxTemplate="let data of 'imageTemplate'">
+          <img
+            *ngIf="_formdata.COM_EVIDENCE"
+            [src]="_formdata.COM_EVIDENCE"
+            style="
+              max-width: 900px;
+              max-height: 900px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              display: block;
+            "
+          />
+
+          <span
+            *ngIf="!_formdata.COM_EVIDENCE"
+            style="color: #999; font-style: italic"
+          >
+            ไม่มีรูปภาพแสดงผล
+          </span>
+        </div>
+          <dxi-item [colSpan]="2"></dxi-item>
+        </dx-form>
+        <dx-button
+          [height]="50"
+          text="ดาวน์โหลดหลักฐาน"
+          (onClick)="downloadFile(_formdata.COM_EVIDENCE)"
+        ></dx-button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="index > 0">
+  <div *ngIf="index === 1">
+    <app-guest-com-list></app-guest-com-list>
+  </div>
+</div>

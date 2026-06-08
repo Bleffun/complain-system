@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <h2 style="color: orange;padding-top: 10px;padding-left: 20px;">{{ "เรื่องร้องเรียน" }}</h2>
+  <div class="card">
+    <div class="mt-3">
+      <dx-data-grid
+        [dataSource]="complainList"
+        [showColumnLines]="true"
+        noDataText="{{ 'ไม่มีข้อมูล' }}"
+        [showRowLines]="true"
+        [showBorders]="true"
+        [columnAutoWidth]="true"
+      >
+        <dxo-search-panel
+          [width]="320"
+          placeholder="{{ 'ค้นหา...' }}"
+          [visible]="true"
+        ></dxo-search-panel>
+        <dxo-editing mode="cell"></dxo-editing>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          displayMode="compact"
+          [allowedPageSizes]="[10, 20, 50]"
+          [showInfo]="true"
+          infoText="{{ 'แสดงผลหน้าที่ {0} ถึง {1} (จากทั้งหมด {2} รายการ)' }}"
+        ></dxo-pager>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-load-panel text="{{ 'กำลังดึงข้อมูล' }}"></dxo-load-panel>
+        <dxi-column caption=" " alignment="center" [width]="75" cellTemplate="actionCelltemplate">
+          <div *dxTemplate="let cell of 'actionCelltemplate'">
+            <dx-button icon="edit" (onClick)="OnEdit(cell.data)"></dx-button>
+          </div>
+        </dxi-column>
+        <dxi-column
+          caption="{{ 'ลำดับ' }}"
+          alignment="center"
+          cellTemplate="orderListTemplate"
+          [width]="80"
+        >
+          <div *dxTemplate="let cell of 'orderListTemplate'">
+            {{
+              cell.component.pageIndex() * cell.component.pageSize() +
+                cell.rowIndex +
+                1
+            }}
+          </div>
+        </dxi-column>
+        <dxi-column
+          dataField="COM_ID"
+          caption="เลขร้องเรียน"
+          alignment="center"
+          [width]="130"
+        ></dxi-column>
+        <dxi-column
+          dataField="COM_NAME"
+          caption="ชื่อเรื่องร้องเรียน"
+          alignment="center"
+          [minWidth]="130"
+        ></dxi-column>
+        <dxi-column
+          dataField="CREATE_DATE"
+          caption="วันที่เอกสาร"
+          alignment="center"
+          [minWidth]="130"
+        ></dxi-column>
+        <dxi-column
+          dataField="COM_STATUS"
+          caption="สถานะ"
+          alignment="center"
+          [minWidth]="130"
+        ></dxi-column>
+
+      </dx-data-grid>
+    </div>
+  </div>
+</div>

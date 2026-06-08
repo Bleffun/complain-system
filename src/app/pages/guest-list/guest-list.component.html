@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="grid-container" *ngIf="index === 0">
+    <div
+      *ngFor="let item of List"
+      class="card"
+      style="border: 2px solid #0d7100; cursor: pointer"
+      (click)="Selection(item)"
+    >
+      <h3 class="card-title">{{ item.title }}</h3>
+    </div>
+  </div>
+  <div *ngIf="index > 0">
+    <div *ngIf="index === 1">
+      <app-create-complain></app-create-complain>
+    </div>
+    <div *ngIf="index === 2">
+      <app-guest-login></app-guest-login>
+    </div>
+  </div>
+</div>

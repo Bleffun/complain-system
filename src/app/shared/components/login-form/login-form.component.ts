@@ -5,6 +5,9 @@ import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
 import notify from 'devextreme/ui/notify';
 import { AuthService } from '../../services';
+import { CallApiService } from '../../services/call-api.service';
+import Swal from 'sweetalert2';
+import { InternalCache } from '../../services/cache';
 
 
 @Component({
@@ -15,22 +18,40 @@ import { AuthService } from '../../services';
 export class LoginFormComponent {
   loading = false;
   formData: any = {};
-  constructor(private authService: AuthService, private router: Router) { }
+  UserDB: any = [];
+  data:any=[];
+  constructor(private authService: AuthService,
+    private callapi: CallApiService,
+  ) { }
+
+  ngOnInit() {
+
+  }
 
   async onSubmit(e: Event) {
     e.preventDefault();
     const { username, password } = this.formData;
-    this.loading = true;
-    const result = await this.authService.logIn(username, password);
-    if (!result.isOk) {
-      this.loading = false;
-      notify(result.message, 'error', 2000);
+    this.data = await this.callapi.getUser(username).toPromise();
+    this.UserDB = this.data.body[0]
+    if (username === this.UserDB.USER_NAME && password === this.UserDB.USER_PASS) {
+      this.loading = true;
+      InternalCache.Set("Username",this.UserDB.USER_NAME);
+      InternalCache.Set("Name",this.UserDB.USER_FULLNAME);
+      InternalCache.Set("UserID",this.UserDB.USER_ID);
+      const result = await this.authService.logIn(username, password);
+      if (!result.isOk) {
+        this.loading = false;
+        notify(result.message, 'error', 2000);
+      }
+    }else{
+      Swal.fire({
+        title:"ผิดพลาด",
+        text:"User หรือ Password ไม่ถูกต้อง",
+        icon:"warning",
+        confirmButtonText:"OK",
+      })
     }
   }
-
-  // onCreateAccountClick = () => {
-  //   this.router.navigate(['/create-account']);
-  // }
 
 }
 @NgModule({
@@ -40,7 +61,7 @@ export class LoginFormComponent {
     DxFormModule,
     DxLoadIndicatorModule
   ],
-  declarations: [ LoginFormComponent ],
-  exports: [ LoginFormComponent ]
+  declarations: [LoginFormComponent],
+  exports: [LoginFormComponent]
 })
 export class LoginFormModule { }

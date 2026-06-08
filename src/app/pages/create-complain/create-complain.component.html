@@ -1,0 +1,78 @@
+<div class="panel-body">
+  <div class="h3">สร้างคำขอร้องเรียน</div>
+  <div class="mt-3">
+    <dx-form
+      [formData]="_formdata"
+      [colCount]="2"
+      labelLocation="top"
+      style="width: 99.5%; margin: auto; padding-top: 10px"
+    >
+      <dxi-item [colSpan]="2">
+        <dxo-label text="หัวข้อที่ร้องเรียน"></dxo-label>
+        <dxi-validation-rule
+          type="required"
+          message="กรุณากรอกหัวข้อ"
+        ></dxi-validation-rule>
+        <dx-text-box [(value)]="_formdata.COM_NAME"></dx-text-box>
+      </dxi-item>
+      <dxi-item [colSpan]="2">
+        <dxo-label text="รหัสบัตรประชาชน"></dxo-label>
+        <dxi-validation-rule
+          type="required"
+          message="กรุณากรอกบัตรประชาชน"
+        ></dxi-validation-rule>
+        <dx-text-box [(value)]="_formdata.COM_IDCARD"></dx-text-box>
+      </dxi-item>
+      <dxi-item [colSpan]="2">
+        <dxo-label text="รายละเอียด"></dxo-label>
+        <dx-text-area [(value)]="_formdata.COM_DETAIL"></dx-text-area>
+      </dxi-item>
+      <dxi-item [colSpan]="2">
+        <dxo-label text="ผู้กระทำความผิด"></dxo-label>
+        <dx-select-box
+          [dataSource]="_selectUser"
+          valueExpr="USER_ID"
+          displayExpr="USER_FULLNAME"
+          [(value)]="_formdata.USER_ID"
+        ></dx-select-box>
+      </dxi-item>
+      <dxi-item [colSpan]="2">
+        <dxo-label
+          text="รูปลักษณ์ผู้กระทำผิด(กรณีไม่รู้ชื่อผู้กระทำ)"
+        ></dxo-label>
+        <dx-text-area [(value)]="_formdata.COM_USER_DETAIL"></dx-text-area>
+      </dxi-item>
+      <dxi-item [colSpan]="2">
+        <div class="upload-container">
+          <dxo-label text="อัปรูปหลักฐาน"></dxo-label>
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+          <div *ngIf="fileName">
+            <p><strong>เลือกไฟล์แล้ว:</strong> {{ fileName }}</p>
+            <p></p>
+          </div>
+        </div>
+      </dxi-item>
+      <dxi-item [colSpan]="2"></dxi-item>
+    </dx-form>
+    <div style="place-items: center">
+      <dx-button
+        class="btn-back"
+        [width]="160"
+        [height]="50"
+        text="ย้อนกลับ"
+        (onClick)="OnBack()"
+      ></dx-button>
+      <dx-button
+        class="btn-send"
+        [width]="160"
+        [height]="50"
+        text="ส่งคำขอ"
+        (onClick)="OnSend()"
+      ></dx-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="mt-3">
+    <div class="card">
+      <dx-button
+        class="btn-back"
+        text="ย้อนกลับ"
+        (onClick)="OnBack()"
+      ></dx-button>
+      <dx-form
+        [formData]="_formdata"
+        [colCount]="2"
+        labelLocation="top"
+        style="width: 98%; margin: auto; padding-top: 10px"
+      >
+        <dxi-item [colSpan]="2">
+          <dxo-label text="หัวข้อที่ร้องเรียน"></dxo-label>
+          <dxi-validation-rule
+            type="required"
+            message="กรุณากรอกหัวข้อ"
+          ></dxi-validation-rule>
+          <dx-text-box
+            [readOnly]="true"
+            [(value)]="_formdata.COM_NAME"
+          ></dx-text-box>
+        </dxi-item>
+        <dxi-item [colSpan]="2">
+          <dxo-label text="รหัสบัตรประชาชน"></dxo-label>
+          <dxi-validation-rule
+            type="required"
+            message="กรุณากรอกบัตรประชาชน"
+          ></dxi-validation-rule>
+          <dx-text-box
+            [readOnly]="true"
+            [(value)]="_formdata.COM_IDCARD"
+          ></dx-text-box>
+        </dxi-item>
+        <dxi-item [colSpan]="2">
+          <dxo-label text="รายละเอียด"></dxo-label>
+          <dx-text-area
+            [readOnly]="true"
+            [(value)]="_formdata.COM_DETAIL"
+          ></dx-text-area>
+        </dxi-item>
+        <dxi-item [colSpan]="2">
+          <dxo-label text="ผู้กระทำความผิด"></dxo-label>
+          <dxi-validation-rule
+            type="required"
+            message="กรุณากรอกพนักงาน"
+          ></dxi-validation-rule>
+          <dx-select-box
+            [dataSource]="_selectUser"
+            valueExpr="USER_ID"
+            displayExpr="USER_FULLNAME"
+            [readOnly]="_readOnly"
+            [(value)]="_formdata.USER_ID"
+          ></dx-select-box>
+        </dxi-item>
+        <dxi-item [colSpan]="2">
+          <dxo-label
+            text="รูปลักษณ์ผู้กระทำผิด(กรณีไม่รู้ชื่อผู้กระทำ)"
+          ></dxo-label>
+          <dx-text-area
+            [readOnly]="true"
+            [(value)]="_formdata.COM_USER_DETAIL"
+          ></dx-text-area>
+        </dxi-item>
+        <!-- <dxi-item [colSpan]="2">
+        <div class="upload-container">
+          <dxo-label text="อัปรูปหลักฐาน"></dxo-label>
+          <input type="file" (change)="onFileSelected($event)" accept="*/*" />
+          <div *ngIf="fileName">
+            <p><strong>เลือกไฟล์แล้ว:</strong> {{ fileName }}</p>
+            <p>
+            </p>
+          </div>
+        </div>
+      </dxi-item> -->
+        <dxi-item [colSpan]="2"></dxi-item>
+        <dxi-item label="รูปภาพแนบ" template="imageTemplate" [colSpan]="2">
+        </dxi-item>
+
+        <div *dxTemplate="let data of 'imageTemplate'">
+          <img
+            *ngIf="_formdata.COM_EVIDENCE"
+            [src]="_formdata.COM_EVIDENCE"
+            style="
+              max-width: 900px;
+              max-height: 900px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              display: block;
+            "
+          />
+
+          <span
+            *ngIf="!_formdata.COM_EVIDENCE"
+            style="color: #999; font-style: italic"
+          >
+            ไม่มีรูปภาพแสดงผล
+          </span>
+        </div>
+      </dx-form>
+
+      <div style="padding-left: 20px">
+        <!-- <dxo-label text="หลักฐาน"></dxo-label> -->
+        <dx-button
+          [height]="50"
+          text="ดาวน์โหลดหลักฐาน"
+          [visible]="_visible3"
+          (onClick)="downloadFile(_formdata.COM_EVIDENCE)"
+        ></dx-button>
+      </div>
+      <div style="padding-bottom: 20px; padding-left: 85%">
+        <dx-button
+          class="btn-send"
+          [height]="50"
+          text="ส่งเพื่อตักเตือนพนักงาน"
+          (onClick)="OnSendManager()"
+          [visible]="_visible"
+        ></dx-button>
+        <dx-button
+          class="btn-send"
+          [height]="50"
+          text="รับทราบข้อมูล"
+          (onClick)="OnSubmit()"
+          [visible]="_visible2"
+        ></dx-button>
+      </div>
+    </div>
+  </div>
+</div>

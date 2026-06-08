@@ -1,24 +1,33 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginFormComponent } from './shared/components';
 import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
-import { LoginFormComponent } from './shared/components';
-import { TaskListComponent } from './pages/Task-list/Task-list.component';
-import { GuestPagesComponent } from './pages/guest-pages/guest-pages.component';
+import { TestPopupComponent } from './test-popup/test-popup.component';
+import { AppComponent } from './app.component';
+import { GuestListComponent } from './pages/guest-list/guest-list.component';
+import { ComplainListComponent } from './pages/complain-list/complain-list.component';
+import { ComplainDetailComponent } from './pages/complain-detail/complain-detail.component';
+import { ComHistoryComponent } from './pages/com-history/com-history.component';
+import { ComHistoryDetailComponent } from './pages/com-history-detail/com-history-detail.component';
+import { GuestComListComponent } from './pages/guest-com-list/guest-com-list.component';
+import { GuestLoginComponent } from './pages/guest-login/guest-login.component';
 
 const routes: Routes = [
   {
-    path: "", canActivate: [AuthGuardService],
+    path: '', canActivate: [AuthGuardService],
     children: [
-      { path: '', component: TaskListComponent },
-
+      { path: '', component: ComplainListComponent },
+      { path: 'ComplainList/:USER_ID', component: ComplainDetailComponent },
+      { path: 'History', component: ComHistoryComponent },
+      { path: 'History/:USER_ID', component: ComHistoryDetailComponent },
     ]
   },
-  { path: 'login-form', component: LoginFormComponent, canActivate: [AuthGuardService] },
-  { path: 'guest-form', component: GuestPagesComponent, canActivate: [AuthGuardService] },
+  { path: 'guest', component: GuestListComponent },
+  { path: 'login-form', component: LoginFormComponent },
 ];
 
 @NgModule({
@@ -28,7 +37,8 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     ProfileComponent,
-    TasksComponent
+    TasksComponent,
+
   ]
 })
 export class AppRoutingModule { }

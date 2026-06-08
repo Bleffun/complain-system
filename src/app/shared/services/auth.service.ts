@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { CallApiService } from './CallApi.service';
+import { CallApiService } from '../services/call-api.service';
 
 
 
@@ -14,6 +14,7 @@ export class AuthService {
     this.logOut();
   }
   get loggedIn(): boolean {
+    this._user = sessionStorage.getItem('fullname');
     return !!this._user;
   }
   private _lastAuthenticatedPath: string = defaultPath;
@@ -26,7 +27,7 @@ export class AuthService {
   async logIn(username: string, password: string) {
       // Send request
       this.checkData = await this.CallApi.getUser(username).toPromise();
-      this.checkData = this.checkData[0];
+      this.checkData = this.checkData.body[0];
       if((this.checkData.USER_NAME == username)&&(this.checkData.USER_PASS == password)){
         sessionStorage.setItem('username',this.checkData.USER_NAME);
         sessionStorage.setItem('fullname',this.checkData.USER_FULLNAME);
@@ -38,7 +39,6 @@ export class AuthService {
         message: "Username หรือ รหัสผ่านไม่ถูกต้อง"
       };
       }
-      window.location.reload();
       this.router.navigate([this._lastAuthenticatedPath]);
 
       return {
@@ -128,9 +128,6 @@ export class AuthGuardService implements CanActivate {
     const isLoggedIn = this.authService.loggedIn;
     const isAuthForm = [
       'login-form',
-      'reset-password',
-      'create-account',
-      'change-password/:recoveryCode',
       'guest-form'
     ].includes(route.routeConfig?.path || defaultPath);
 
