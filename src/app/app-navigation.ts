@@ -1,4 +1,5 @@
-export const navigation = [
+
+export const navigationEmployee = [
   {
     text: 'หน้าหลัก',
     path: '/',
@@ -9,22 +10,22 @@ export const navigation = [
     path: '/History',
     icon: 'history',
   },
-  // {
-  //   text: 'Training',
-  //   icon: 'folder',
-  //   items: [
-  //     {
-  //       text: 'Guage',
-  //       path: '/tanagorn'
-  //     },
-  //     {
-  //       text: 'Calculate',
-  //       path: '/calculate'
-  //     },
-  //     {
-  //       text: 'Gridview',
-  //       path: '/popup'
-  //     }
-  //   ]
-  // }
+]
+
+export const navigationManager = [
+  {
+    text: 'หน้าหลัก',
+    path: '/',
+    icon: 'home'
+  },
+  {
+    text: 'ประวัติการร้องเรียน',
+    path: '/History',
+    icon: 'history',
+  },
+  {
+    text: 'สร้างบัญชีพนักงาน',
+    path: '/CreateEmployee',
+    icon: 'employee'
+  }
 ];

@@ -11,20 +11,37 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ComplainListComponent implements OnInit {
   complainList: any = [];
   data: any = [];
-  constructor(private callapi: CallApiService,private router:Router) { }
+  constructor(private callapi: CallApiService, private router: Router) { }
   @Input() idcard: any;
   async ngOnInit() {
     const username = InternalCache.Get("UserID");
     if (username) {
       this.data = await this.callapi.getComplain(username).toPromise();
+      this.data.body = this.ConvertDate(this.data.body);
     } else {
       this.data = await this.callapi.getComplain(this.idcard).toPromise();
+      this.data.body = this.ConvertDate(this.data.body);
     }
     this.complainList = this.data.body;
 
   }
-  OnEdit(e:any){
+  OnEdit(e: any) {
     this.callapi.setData(e);
-    this.router.navigate(['/ComplainList/'+e.COM_ID]);
+    this.router.navigate(['/ComplainList/' + e.COM_ID]);
+  }
+  ConvertDate(date: any) {
+    const Newdate = date.map((item: any) => {
+      const dateObj = new Date(item.CREATE_DATE);
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const hours = String(dateObj.getHours()).padStart(2, '0');
+      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+      const thaiYear = dateObj.getFullYear() + 543;
+      return {
+        ...item,
+        CREATE_DATE: `${day}/${month}/${thaiYear} ${hours}:${minutes}`
+      };
+    });
+    return Newdate;
   }
 }

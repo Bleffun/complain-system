@@ -18,6 +18,27 @@ html, body {
     margin-bottom: 20px;
   }
 }
+.container-fluid{
+  background: white;
+}
+
+.btn-send{
+  background: #0ba000;
+  color:white;
+  gap:20px;
+}
+.btn-back{
+  background: rgb(211, 211, 14);
+  // color:white;
+  gap:20px;
+}
+
+
+.h3{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
 
 .container {
   height: 100%;

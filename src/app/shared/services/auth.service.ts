@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { CallApiService } from '../services/call-api.service';
-
+import { InternalCache } from '../services/cache';
 
 
 const defaultPath = '/';
 
 @Injectable()
 export class AuthService {
-  private _user = sessionStorage.getItem('fullname') || null;
+  private _user =  null;
   checkData : any = {};
   if(_user = null){
     this.logOut();
   }
   get loggedIn(): boolean {
-    this._user = sessionStorage.getItem('fullname');
+    this._user = InternalCache.Get('fullname');
     return !!this._user;
   }
   private _lastAuthenticatedPath: string = defaultPath;
@@ -22,17 +22,17 @@ export class AuthService {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router,private CallApi:CallApiService) { }
+  constructor(private router: Router,private CallApi:CallApiService ) { }
 
   async logIn(username: string, password: string) {
       // Send request
       this.checkData = await this.CallApi.getUser(username).toPromise();
       this.checkData = this.checkData.body[0];
       if((this.checkData.USER_NAME == username)&&(this.checkData.USER_PASS == password)){
-        sessionStorage.setItem('username',this.checkData.USER_NAME);
-        sessionStorage.setItem('fullname',this.checkData.USER_FULLNAME);
-        sessionStorage.setItem('role',this.checkData.ROLE_NAME);
-        sessionStorage.setItem('userID',this.checkData.USER_ID);
+        InternalCache.Set('username',this.checkData.USER_NAME);
+        InternalCache.Set('fullname',this.checkData.USER_FULLNAME);
+        InternalCache.Set('role',this.checkData.ROLE_NAME);
+        InternalCache.Set('userID',this.checkData.USER_ID);
       }else{
         return {
         isOk: false,
@@ -115,7 +115,7 @@ export class AuthService {
 
   async logOut() {
     this._user = null;
-    sessionStorage.clear();
+    InternalCache.ClearCache();
     this.router.navigate(['/login-form']);
   }
 }

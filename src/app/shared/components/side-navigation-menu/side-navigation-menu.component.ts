@@ -1,6 +1,7 @@
 import { Component, NgModule, Output, Input, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { DxTreeViewModule, DxTreeViewComponent, DxTreeViewTypes } from 'devextreme-angular/ui/tree-view';
-import { navigation } from '../../../app-navigation';
+import { navigationManager, navigationEmployee } from '../../../app-navigation';
+import { InternalCache } from '../../services/cache';
 
 import * as events from 'devextreme/events';
 
@@ -33,12 +34,21 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
   private _items!: Record <string, unknown>[];
   get items() {
     if (!this._items) {
-      this._items = navigation.map((item) => {
+      if(InternalCache.Get('role') == "Manager"||"Admin"){
+      this._items = navigationManager.map((item) => {
         if(item.path && !(/^\//.test(item.path))){
           item.path = `/${item.path}`;
         }
          return { ...item, expanded: !this._compactMode }
         });
+      } else {
+        this._items = navigationEmployee.map((item) => {
+          if(item.path && !(/^\//.test(item.path))){
+            item.path = `/${item.path}`;
+          }
+          return { ...item, expanded: !this._compactMode }
+        });
+      }
     }
 
     return this._items;
