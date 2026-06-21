@@ -19,7 +19,7 @@ export class LoginFormComponent {
   loading = false;
   formData: any = {};
   UserDB: any = [];
-  data:any=[];
+  data: any = [];
   constructor(private authService: AuthService,
     private callapi: CallApiService,
   ) { }
@@ -31,29 +31,31 @@ export class LoginFormComponent {
   async onSubmit(e: Event) {
     e.preventDefault();
     const { username, password } = this.formData;
-    this.data = await this.callapi.getUser(username).toPromise();
-    this.UserDB = this.data.body[0]
-    if (username === this.UserDB.USER_NAME && password === this.UserDB.USER_PASS) {
-      this.loading = true;
-      InternalCache.Set("Username",this.UserDB.USER_NAME);
-      InternalCache.Set("Name",this.UserDB.USER_FULLNAME);
-      InternalCache.Set("UserID",this.UserDB.USER_ID);
-      const result = await this.authService.logIn(username, password);
-      if (!result.isOk) {
-        this.loading = false;
-        notify(result.message, 'error', 2000);
-      }
-    }else{
-      Swal.fire({
-        title:"ผิดพลาด",
-        text:"User หรือ Password ไม่ถูกต้อง",
-        icon:"warning",
-        confirmButtonText:"OK",
-      })
+    // this.data = await this.callapi.getUser(username).toPromise() || null;
+    // this.UserDB = this.data.body[0]
+    // if (this.UserDB) {
+    //   if (username == this.UserDB.USER_NAME && password == this.UserDB.USER_PASS) {
+    //     this.loading = true;
+    //     // InternalCache.Set("Username",this.UserDB.USER_NAME);
+    //     // InternalCache.Set("Name",this.UserDB.USER_FULLNAME);
+    //     // InternalCache.Set("UserID",this.UserDB.USER_ID);
+    const result = await this.authService.logIn(username, password);
+    if (!result.isOk) {
+      this.loading = false;
+      notify(result.message, 'error', 2000);
     }
   }
-
+  // } else {
+  //   Swal.fire({
+  //     title: "ผิดพลาด",
+  //     text: "User หรือ Password ไม่ถูกต้อง",
+  //     icon: "warning",
+  //     confirmButtonText: "OK",
+  //   })
+  // }
 }
+
+
 @NgModule({
   imports: [
     CommonModule,

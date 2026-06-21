@@ -31,19 +31,19 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
     this.menu.instance.selectItem(value);
   }
 
-  private _items!: Record <string, unknown>[];
+  private _items!: Record<string, unknown>[];
   get items() {
     if (!this._items) {
-      if(InternalCache.Get('role') == "Manager"||"Admin"){
-      this._items = navigationManager.map((item) => {
-        if(item.path && !(/^\//.test(item.path))){
-          item.path = `/${item.path}`;
-        }
-         return { ...item, expanded: !this._compactMode }
+      if (InternalCache.Get('roleId') == "0" || (InternalCache.Get('roleId') == "1")) {
+        this._items = navigationManager.map((item) => {
+          if (item.path && !(/^\//.test(item.path))) {
+            item.path = `/${item.path}`;
+          }
+          return { ...item, expanded: !this._compactMode }
         });
       } else {
         this._items = navigationEmployee.map((item) => {
-          if(item.path && !(/^\//.test(item.path))){
+          if (item.path && !(/^\//.test(item.path))) {
             item.path = `/${item.path}`;
           }
           return { ...item, expanded: !this._compactMode }
@@ -91,8 +91,8 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-  imports: [ DxTreeViewModule ],
-  declarations: [ SideNavigationMenuComponent ],
-  exports: [ SideNavigationMenuComponent ]
+  imports: [DxTreeViewModule],
+  declarations: [SideNavigationMenuComponent],
+  exports: [SideNavigationMenuComponent]
 })
 export class SideNavigationMenuModule { }

@@ -16,8 +16,8 @@ export class GuestComListComponent implements OnInit {
   async ngOnInit() {
     const idcard = this.callapi.getLog();
     this.data = await this.callapi.getComplain(idcard).toPromise();
-    this.complainList = this.data.body;
-    this.complainList
+    this.complainList = this.ConvertDate(this.data.body);
+    this.complainList = this.clearObjectValue(this.complainList)
   }
   OnEdit(e: any) {
     this.callapi.setLog(e);
@@ -27,12 +27,31 @@ export class GuestComListComponent implements OnInit {
     this.index = 2;
   }
   clearObjectValue(rowData: any) {
-  const value = rowData.COM_STATUS2;
-
-  // เช็คว่าถ้าค่าเป็น Object และไม่ใช่ null/undefined ให้ส่งค่ากลับเป็น string ว่าง ""
-  if (value && typeof value === 'object') {
-    return "";
+    const cleradata = rowData.map((item: any) => {
+      if (typeof item.COM_STATUS2 === 'object') {
+        console.log('clear');
+        return {
+          ...item,
+          COM_STATUS2: 'กำลังเดินเรื่อง'
+        };
+      }
+      return item;
+    });
+    return cleradata
   }
-  return value; // ถ้าเป็นค่าธรรมนดาก็ให้แสดงผลปกติ
-}
+  ConvertDate(date: any) {
+    const Newdate = date.map((item: any) => {
+      const dateObj = new Date(item.CREATE_DATE);
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const hours = String(dateObj.getHours()).padStart(2, '0');
+      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+      const thaiYear = dateObj.getFullYear() + 543;
+      return {
+        ...item,
+        CREATE_DATE: `${day}/${month}/${thaiYear} ${hours}:${minutes}`
+      };
+    });
+    return Newdate;
+  }
 }

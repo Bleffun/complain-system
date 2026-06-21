@@ -8,9 +8,9 @@ const defaultPath = '/';
 
 @Injectable()
 export class AuthService {
-  private _user =  null;
-  checkData : any = {};
-  if(_user = null){
+  private _user = null;
+  checkData: any = {};
+  if(_user = null) {
     this.logOut();
   }
   get loggedIn(): boolean {
@@ -22,29 +22,32 @@ export class AuthService {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router,private CallApi:CallApiService ) { }
+  constructor(private router: Router, private CallApi: CallApiService) { }
 
   async logIn(username: string, password: string) {
-      // Send request
-      this.checkData = await this.CallApi.getUser(username).toPromise();
-      this.checkData = this.checkData.body[0];
-      if((this.checkData.USER_NAME == username)&&(this.checkData.USER_PASS == password)){
-        InternalCache.Set('username',this.checkData.USER_NAME);
-        InternalCache.Set('fullname',this.checkData.USER_FULLNAME);
-        InternalCache.Set('role',this.checkData.ROLE_NAME);
-        InternalCache.Set('userID',this.checkData.USER_ID);
-      }else{
-        return {
+    // Send request
+    this.checkData = await this.CallApi.getUser(username).toPromise() || null;
+    this.checkData = this.checkData.body[0];
+    if (this.checkData) {
+      if ((this.checkData.USER_NAME == username) && (this.checkData.USER_PASS == password)) {
+        InternalCache.Set('username', this.checkData.USER_NAME);
+        InternalCache.Set('fullname', this.checkData.USER_FULLNAME);
+        InternalCache.Set('role', this.checkData.ROLE_NAME);
+        InternalCache.Set('UserID', this.checkData.USER_ID);
+        InternalCache.Set('roleId', this.checkData.ROLE_ID);
+      }
+    } else {
+      return {
         isOk: false,
         message: "Username หรือ รหัสผ่านไม่ถูกต้อง"
       };
-      }
-      this.router.navigate([this._lastAuthenticatedPath]);
+    }
+    this.router.navigate([this._lastAuthenticatedPath]);
 
-      return {
-        isOk: true,
-        data: this._user
-      };
+    return {
+      isOk: true,
+      data: this._user
+    };
 
   }
 

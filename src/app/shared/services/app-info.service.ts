@@ -5,7 +5,7 @@ export class AppInfoService {
   constructor() {}
 
   public get title() {
-    return 'FromFirstWeek';
+    return 'Complain System';
   }
 
   public get currentYear() {
