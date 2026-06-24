@@ -76,29 +76,30 @@
         </div>
       </dxi-item> -->
         <dxi-item [colSpan]="2"></dxi-item>
-        <dxi-item label="รูปภาพแนบ" template="imageTemplate" [colSpan]="2">
+
+        <dxi-item template="imageTemplate" [colSpan]="2" [visible]="_visible3">
+          <dxo-label text="รูปหลักฐาน"></dxo-label>
+          <div *dxTemplate="let data of 'imageTemplate'">
+            <img
+              *ngIf="_formdata.COM_EVIDENCE"
+              [src]="_formdata.COM_EVIDENCE"
+              style="
+                max-width: 900px;
+                max-height: 900px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                display: block;
+              "
+            />
+
+            <span
+              *ngIf="!_formdata.COM_EVIDENCE"
+              style="color: #999; font-style: italic"
+            >
+              ไม่มีรูปภาพแสดงผล
+            </span>
+          </div>
         </dxi-item>
-
-        <div *dxTemplate="let data of 'imageTemplate'">
-          <img
-            *ngIf="_formdata.COM_EVIDENCE"
-            [src]="_formdata.COM_EVIDENCE"
-            style="
-              max-width: 900px;
-              max-height: 900px;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              display: block;
-            "
-          />
-
-          <span
-            *ngIf="!_formdata.COM_EVIDENCE"
-            style="color: #999; font-style: italic"
-          >
-            ไม่มีรูปภาพแสดงผล
-          </span>
-        </div>
       </dx-form>
 
       <div style="padding-left: 20px">
@@ -114,7 +115,7 @@
         <dx-button
           class="btn-send"
           [height]="50"
-          text="ส่งเพื่อตักเตือนพนักงาน"
+          text="ตักเตือน"
           (onClick)="OnSendManager()"
           [visible]="_visible"
         ></dx-button>

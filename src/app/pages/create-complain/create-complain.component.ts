@@ -33,7 +33,7 @@ export class CreateComplainComponent implements OnInit {
   async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-
+    console.log(file);
     if (file) {
       this.fileName = file.name;
       try {

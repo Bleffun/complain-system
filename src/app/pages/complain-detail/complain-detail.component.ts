@@ -21,17 +21,19 @@ export class ComplainDetailComponent implements OnInit {
   constructor(private router: Router, private callapi: CallApiService) { }
 
   async ngOnInit() {
-    const userid = InternalCache.Get("UserID");
-
-    if (userid == 2) {
+    const roleid = InternalCache.Get("roleId");
+    if (roleid <= 2) {
       this._readOnly = false;
       this._visible = true;
     }
     this._formdata = this.callapi.getData();
+    if (typeof this._formdata.USER_ID !== 'object') {
+      this._readOnly = true;
+    }
     if (this._formdata.COM_STATUS == "ผู้รับผิดชอบรับรู้") {
       this._visible2 = true;
     }
-    if (this._formdata.COM_EVIDENCE != "") {
+    if (typeof this._formdata.COM_EVIDENCE !== 'object') {
       this._visible3 = true;
     }
     if (this.callapi.getData() == "") {

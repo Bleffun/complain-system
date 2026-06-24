@@ -24,8 +24,20 @@ export const navigationManager = [
     icon: 'history',
   },
   {
-    text: 'สร้างบัญชีพนักงาน',
-    path: '/CreateEmployee',
-    icon: 'employee'
+    text: 'จัดการผนักงาน',
+    icon: 'folder',
+    items: [
+      {
+        text: 'สร้างบัญชีพนักงาน',
+        path: '/CreateEmployee',
+        icon: ''
+      },
+      {
+        text: 'จัดการผนักงาน',
+        path: '/ManageEmployee',
+        icon: ''
+      }
+    ]
   }
+
 ];

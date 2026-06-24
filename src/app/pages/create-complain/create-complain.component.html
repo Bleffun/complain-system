@@ -21,7 +21,7 @@
           type="required"
           message="กรุณากรอกบัตรประชาชน"
         ></dxi-validation-rule>
-        <dx-text-box [(value)]="_formdata.COM_IDCARD"></dx-text-box>
+        <dx-text-box maxLength="13" [(value)]="_formdata.COM_IDCARD"></dx-text-box>
       </dxi-item>
       <dxi-item [colSpan]="2">
         <dxo-label text="รายละเอียด"></dxo-label>
@@ -50,9 +50,18 @@
             (change)="onFileSelected($event)"
             accept="image/*"
           />
-          <div *ngIf="fileName">
-            <p><strong>เลือกไฟล์แล้ว:</strong> {{ fileName }}</p>
-            <p></p>
+          <div *ngIf="base64String">
+            <img
+              *ngIf="base64String"
+              [src]="base64String"
+              style="
+                max-width: 900px;
+                max-height: 900px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                display: block;
+              "
+            />
           </div>
         </div>
       </dxi-item>

@@ -17,12 +17,10 @@ export class ComplainListComponent implements OnInit {
     const username = InternalCache.Get("UserID");
     if (username) {
       this.data = await this.callapi.getComplain(username).toPromise();
-      this.data.body = this.ConvertDate(this.data.body);
     } else {
       this.data = await this.callapi.getComplain(this.idcard).toPromise();
-      this.data.body = this.ConvertDate(this.data.body);
     }
-    this.complainList = this.data.body;
+    this.complainList = this.ConvertDate(this.data.body);
 
   }
   OnEdit(e: any) {
