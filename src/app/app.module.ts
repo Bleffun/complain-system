@@ -21,6 +21,7 @@ import { ComHistoryDetailComponent } from './pages/com-history-detail/com-histor
 import { GuestComListComponent } from './pages/guest-com-list/guest-com-list.component';
 import { GuestLoginComponent } from './pages/guest-login/guest-login.component';
 import { GuestListDetailComponent } from './pages/guest-list-detail/guest-list-detail.component';
+import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ import { GuestListDetailComponent } from './pages/guest-list-detail/guest-list-d
     GuestComListComponent,
     GuestLoginComponent,
     GuestListDetailComponent,
+    CreateEmployeeComponent,
+    CreateEmployeeComponent,
   ],
   imports: [
     BrowserModule,

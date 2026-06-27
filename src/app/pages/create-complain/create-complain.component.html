@@ -16,8 +16,12 @@
         ></dxi-validation-rule>
       </dxi-item>
 
-      <dxi-item [colSpan]="2" dataField="COM_IDCARD" editorType="dxTextBox"
-        [editorOptions]="{ maxLength: 13, mode: 'tel' }">
+      <dxi-item
+        [colSpan]="2"
+        dataField="COM_IDCARD"
+        editorType="dxTextBox"
+        [editorOptions]="{ maxLength: 13, mode: 'tel' }"
+      >
         <dxo-label text="รหัสบัตรประชาชน"></dxo-label>
         <dxi-validation-rule
           type="required"
@@ -29,8 +33,16 @@
         <dxo-label text="รายละเอียด"></dxo-label>
       </dxi-item>
 
-      <dxi-item [colSpan]="2" dataField="USER_ID" editorType="dxSelectBox"
-        [editorOptions]="{ dataSource: _selectUser, valueExpr: 'USER_ID', displayExpr: 'USER_FULLNAME' }">
+      <dxi-item
+        [colSpan]="2"
+        dataField="USER_ID"
+        editorType="dxSelectBox"
+        [editorOptions]="{
+          dataSource: _selectUser,
+          valueExpr: 'USER_ID',
+          displayExpr: 'USER_FULLNAME',
+        }"
+      >
         <dxo-label text="ผู้กระทำความผิด"></dxo-label>
       </dxi-item>
 
@@ -67,27 +79,31 @@
         </div>
       </dxi-item>
       <dxi-item [colSpan]="2"></dxi-item>
-      <dxi-item
-        ><div style="place-items: center">
+      <dxi-item template="btnActionTemplate1">
+        <div *dxTemplate="let data of 'btnActionTemplate1'">
+          <div style="place-items: center">
+            <dx-button
+              class="btn-back"
+              [width]="160"
+              [height]="50"
+              text="ย้อนกลับ"
+              (onClick)="OnBack()"
+            ></dx-button>
+          </div>
+        </div>
+      </dxi-item>
+      <dxi-item template="btnActionTemplate2">
+        <div *dxTemplate="let data of 'btnActionTemplate2'">
           <dx-button
-            class="btn-back"
+            class="btn-send"
             [width]="160"
             [height]="50"
-            text="ย้อนกลับ"
-            (onClick)="OnBack()"
+            text="ส่งคำขอ"
+            [useSubmitBehavior]="true"
+            (onClick)="OnSend()"
           ></dx-button>
         </div>
       </dxi-item>
-      <dxi-item
-        ><dx-button
-          class="btn-send"
-          [width]="160"
-          [height]="50"
-          text="ส่งคำขอ"
-          [useSubmitBehavior]="true"
-          (onClick)="OnSend()"
-        ></dx-button
-      ></dxi-item>
     </dx-form>
   </div>
 </div>

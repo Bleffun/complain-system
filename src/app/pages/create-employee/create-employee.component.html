@@ -1,0 +1,44 @@
+  <div class="container-fluid">
+    <div class="grid-container">
+      <dx-form [formData]="formData" [disabled]="loading">
+        <dxi-item
+          dataField="IDCARD"
+          editorType="dxTextBox"
+          [editorOptions]="{
+            maxLength: 13,
+            mode: 'tel',
+            placeholder: 'รหัสบัตรประชาชน',
+          }"
+        >
+          <dxi-validation-rule
+            type="required"
+            message="กรุณากรอกรหัสบัตรประชาชน"
+          ></dxi-validation-rule>
+          <dxo-label [visible]="false"></dxo-label>
+        </dxi-item>
+
+        <!-- <dxi-item itemType="button">
+      <dxo-button-options width="100%" type="default" [useSubmitBehavior]="true" [template]="'signInTemplate'">
+      </dxo-button-options>
+    </dxi-item>
+
+    <ng-container *dxTemplate="let item of 'signInTemplate'">
+      <div>
+
+        <span class="dx-button-text">
+          <ng-container *ngIf="loading; else notLoading">
+            <dx-load-indicator width="24px" height="24px" [visible]="true"></dx-load-indicator>
+          </ng-container>
+          <ng-template #notLoading>Sign In</ng-template>
+        </span>
+      </div>
+    </ng-container> -->
+
+        <dxi-item>
+          <div class="container-grid">
+            <dx-button text="sign in" (onClick)="onSubmit()"></dx-button>
+          </div>
+        </dxi-item>
+      </dx-form>
+    </div>
+  </div>

@@ -15,6 +15,7 @@ import { ComHistoryComponent } from './pages/com-history/com-history.component';
 import { ComHistoryDetailComponent } from './pages/com-history-detail/com-history-detail.component';
 import { GuestComListComponent } from './pages/guest-com-list/guest-com-list.component';
 import { GuestLoginComponent } from './pages/guest-login/guest-login.component';
+import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'ComplainList/:USER_ID', component: ComplainDetailComponent },
       { path: 'History', component: ComHistoryComponent },
       { path: 'History/:USER_ID', component: ComHistoryDetailComponent },
+      { path: 'CreateEmployee', component: CreateEmployeeComponent }
     ]
   },
   { path: 'guest', component: GuestListComponent },
