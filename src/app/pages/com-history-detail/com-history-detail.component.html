@@ -60,35 +60,32 @@
             [(value)]="_formdata.COM_USER_DETAIL"
           ></dx-text-area>
         </dxi-item>
-        <dxi-item label="รูปภาพแนบ" template="imageTemplate" [colSpan]="2">
+        <dxi-item [visible]="hasPic">
+          <dxo-label text="รูปหลักฐาน"></dxo-label>
+          <div *dxTemplate="let data of 'imageTemplate'">
+            <img
+              *ngIf="_formdata.COM_EVIDENCE"
+              [src]="_formdata.COM_EVIDENCE"
+              style="
+                max-width: 900px;
+                max-height: 900px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                display: block;
+              "
+            />
+            <span *ngIf="" style="color: #999; font-style: italic">
+              ไม่มีรูปภาพแสดงผล
+            </span>
+          </div>
+          <dx-button
+            [height]="50"
+            text="ดาวน์โหลดหลักฐาน"
+            (onClick)="downloadFile(_formdata.COM_EVIDENCE)"
+          ></dx-button>
         </dxi-item>
-
-        <div *dxTemplate="let data of 'imageTemplate'">
-          <img
-            *ngIf="_formdata.COM_EVIDENCE"
-            [src]="_formdata.COM_EVIDENCE"
-            style="
-              max-width: 900px;
-              max-height: 900px;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              display: block;
-            "
-          />
-          <span
-            *ngIf=""
-            style="color: #999; font-style: italic"
-          >
-            ไม่มีรูปภาพแสดงผล
-          </span>
-        </div>
         <dxi-item [colSpan]="2"></dxi-item>
       </dx-form>
-      <dx-button
-        [height]="50"
-        text="ดาวน์โหลดหลักฐาน"
-        (onClick)="downloadFile(_formdata.COM_EVIDENCE)"
-      ></dx-button>
     </div>
   </div>
 </div>

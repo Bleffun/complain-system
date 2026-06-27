@@ -72,7 +72,7 @@ export class ComplainDetailComponent implements OnInit {
       return;
     }
     const sendata = {
-      COM_STATUS: 'พนักงานรับทราบแล้ว'
+      COM_STATUS2: 'พนักงานรับทราบแล้ว'
     }
     await this.callapi.changeStatus2(this._formdata.COM_ID, sendata).toPromise();
     this.router.navigate(['/']);

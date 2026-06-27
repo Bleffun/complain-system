@@ -1,14 +1,14 @@
 <div class="container">
   <div class="grid-container" *ngIf="index === 0">
     <dx-form [formData]="formData" [disabled]="loading">
-      <dxi-item
 
-      >
-        <dx-text-box
+      <dxi-item dataField="IDCARD" editorType="dxTextBox"
+        [editorOptions]="{ maxLength: 13, mode: 'tel' ,placeholder: 'รหัสบัตรประชาชน'}">
+        <!-- <dx-text-box
           maxLength="13"
           placeholder="รหัสบัตรประชาชน"
           [(value)]="formData.IDCARD"
-        ></dx-text-box>
+        ></dx-text-box> -->
         <dxi-validation-rule
           type="required"
           message="กรุณากรอกรหัสบัตรประชาชน"
@@ -32,10 +32,13 @@
         </span>
       </div>
     </ng-container> -->
+
+      <dxi-item>
+        <div class="container-grid">
+          <dx-button text="sign in" (onClick)="onSubmit()"></dx-button>
+        </div>
+      </dxi-item>
     </dx-form>
-    <div class="container-grid">
-      <dx-button text="sign in" (onClick)="onSubmit()"></dx-button>
-    </div>
   </div>
   <div *ngIf="index > 0">
     <div *ngIf="index === 1">

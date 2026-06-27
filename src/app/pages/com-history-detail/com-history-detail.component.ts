@@ -12,6 +12,7 @@ import { ConfirmSend } from '../../common/helper';
 export class ComHistoryDetailComponent implements OnInit {
 _formdata: any = [];
   _selectUser: any = [];
+  hasPic = false;
   data:any=[];
   constructor(private router:Router,private callapi:CallApiService) { }
 
@@ -22,6 +23,10 @@ _formdata: any = [];
     }
     if (this.callapi.getData() == "") {
       this.router.navigate(['/History'])
+    }
+    if(typeof this._formdata.COM_EVIDENCE !== 'object')
+    {
+      this.hasPic = true
     }
     this.data = await this.callapi.getAllUsers().toPromise();
     this._selectUser = this.data.body;

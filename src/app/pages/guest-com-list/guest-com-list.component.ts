@@ -29,7 +29,6 @@ export class GuestComListComponent implements OnInit {
   clearObjectValue(rowData: any) {
     const cleradata = rowData.map((item: any) => {
       if (typeof item.COM_STATUS2 === 'object') {
-        console.log('clear');
         return {
           ...item,
           COM_STATUS2: 'กำลังเดินเรื่อง'

@@ -34,7 +34,7 @@ export class SideNavigationMenuComponent implements AfterViewInit, OnDestroy {
   private _items!: Record<string, unknown>[];
   get items() {
     if (!this._items) {
-      if (InternalCache.Get('roleId') == "0" || (InternalCache.Get('roleId') == "1")) {
+      if (InternalCache.Get('roleId') == "1" || (InternalCache.Get('roleId') == "2")) {
         this._items = navigationManager.map((item) => {
           if (item.path && !(/^\//.test(item.path))) {
             item.path = `/${item.path}`;
