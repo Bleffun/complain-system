@@ -15,12 +15,16 @@ export class GuestListDetailComponent implements OnInit {
   data: any = [];
   _readOnly = true;
   index = 0;
+  _visible = false;
   constructor(private router: Router, private callapi: CallApiService) { }
 
   async ngOnInit() {
     this.data = await this.callapi.getAllUsers().toPromise();
     this._selectUser = this.data.body;
     this._formdata = this.callapi.getLog();
+    if (typeof this._formdata.COM_EVIDENCE !== 'object') {
+      this._visible = true;
+    }
   }
   OnBack(e: any) {
     this.callapi.setLog(e);

@@ -78,18 +78,15 @@
           </div>
         </div>
       </dxi-item>
-      <dxi-item [colSpan]="2"></dxi-item>
       <dxi-item template="btnActionTemplate1">
         <div *dxTemplate="let data of 'btnActionTemplate1'">
-          <div style="place-items: center">
-            <dx-button
-              class="btn-back"
-              [width]="160"
-              [height]="50"
-              text="ย้อนกลับ"
-              (onClick)="OnBack()"
-            ></dx-button>
-          </div>
+          <dx-button
+            class="btn-back"
+            [width]="160"
+            [height]="50"
+            text="ย้อนกลับ"
+            (onClick)="OnBack()"
+          ></dx-button>
         </div>
       </dxi-item>
       <dxi-item template="btnActionTemplate2">

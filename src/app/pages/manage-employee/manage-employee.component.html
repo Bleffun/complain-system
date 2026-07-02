@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <h2 style="color: orange;padding-top: 10px;padding-left: 20px;">{{ "สมาชิก" }}</h2>
+  <div class="card">
+    <div class="mt-3">
+      <dx-data-grid
+        [dataSource]="RoleList2"
+        [showColumnLines]="true"
+        noDataText="{{ 'ไม่มีข้อมูล' }}"
+        [showRowLines]="true"
+        [showBorders]="true"
+        [columnAutoWidth]="true"
+      >
+        <dxo-search-panel
+          [width]="320"
+          placeholder="{{ 'ค้นหา...' }}"
+          [visible]="true"
+        ></dxo-search-panel>
+        <dxo-editing mode="cell"></dxo-editing>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          displayMode="compact"
+          [allowedPageSizes]="[10, 20, 50]"
+          [showInfo]="true"
+          infoText="{{ 'แสดงผลหน้าที่ {0} ถึง {1} (จากทั้งหมด {2} รายการ)' }}"
+        ></dxo-pager>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-load-panel text="{{ 'กำลังดึงข้อมูล' }}"></dxo-load-panel>
+        <dxi-column caption=" " alignment="center" [width]="75" cellTemplate="actionCelltemplate">
+          <div *dxTemplate="let cell of 'actionCelltemplate'">
+            <dx-button icon="edit" (onClick)="OnEdit(cell.data)"></dx-button>
+          </div>
+        </dxi-column>
+        <dxi-column caption=" " alignment="center" [width]="75" cellTemplate="actionCelltemplate2">
+          <div *dxTemplate="let cell of 'actionCelltemplate2'">
+            <dx-button icon="trash" (onClick)="OnDelete(cell.data)"></dx-button>
+          </div>
+        </dxi-column>
+        <dxi-column
+          caption="{{ 'ลำดับ' }}"
+          alignment="center"
+          cellTemplate="orderListTemplate"
+          [width]="80"
+        >
+          <div *dxTemplate="let cell of 'orderListTemplate'">
+            {{
+              cell.component.pageIndex() * cell.component.pageSize() +
+                cell.rowIndex +
+                1
+            }}
+          </div>
+        </dxi-column>
+        <dxi-column
+          dataField="USER_NAME"
+          caption="Username"
+          alignment="center"
+          [width]="130"
+        ></dxi-column>
+        <dxi-column
+          dataField="USER_FULLNAME"
+          caption="ชื่อ-สกุล"
+          alignment="center"
+          [minWidth]="130"
+        ></dxi-column>
+        <dxi-column
+          dataField="CREATE_DATE"
+          caption="วันที่สร้าง"
+          alignment="center"
+          [minWidth]="130"
+        ></dxi-column>
+        <dxi-column
+          dataField="ROLE_NAME"
+          caption="ตำแหน่งงาน"
+          alignment="center"
+          [minWidth]="130"
+        ></dxi-column>
+
+      </dx-data-grid>
+    </div>
+  </div>
+</div>

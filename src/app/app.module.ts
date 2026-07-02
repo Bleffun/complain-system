@@ -7,13 +7,12 @@ import { FooterModule, LoginFormModule } from './shared/components';
 import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
-import { DxButtonModule, DxCircularGaugeModule, DxDataGridComponent, DxDataGridModule, DxFormModule, DxLoadIndicatorModule, DxPopupModule, DxSelectBoxModule, DxTemplateModule, DxTextAreaModule, DxTextBoxComponent, DxTextBoxModule } from 'devextreme-angular';
+import { DxAutocompleteModule, DxButtonModule, DxCheckBoxModule, DxCircularGaugeModule, DxDataGridComponent, DxDataGridModule, DxFormModule, DxLoadIndicatorModule, DxPopupModule, DxSelectBoxModule, DxTemplateModule, DxTextAreaModule, DxTextBoxComponent, DxTextBoxModule } from 'devextreme-angular';
 import { ActionComponent } from './action/action.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateComplainComponent } from './pages/create-complain/create-complain.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GuestListComponent } from './pages/guest-list/guest-list.component';
-import dxSelectBox from 'devextreme/ui/select_box';
 import { ComplainListComponent } from './pages/complain-list/complain-list.component';
 import { ComplainDetailComponent } from './pages/complain-detail/complain-detail.component';
 import { ComHistoryComponent } from './pages/com-history/com-history.component';
@@ -22,6 +21,7 @@ import { GuestComListComponent } from './pages/guest-com-list/guest-com-list.com
 import { GuestLoginComponent } from './pages/guest-login/guest-login.component';
 import { GuestListDetailComponent } from './pages/guest-list-detail/guest-list-detail.component';
 import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
+import { ManageEmployeeComponent } from './pages/manage-employee/manage-employee.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { CreateEmployeeComponent } from './pages/create-employee/create-employee
     GuestListDetailComponent,
     CreateEmployeeComponent,
     CreateEmployeeComponent,
+    ManageEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +60,7 @@ import { CreateEmployeeComponent } from './pages/create-employee/create-employee
     DxSelectBoxModule,
     HttpClientModule,
     DxFormModule,
+    DxAutocompleteModule,
     DxCircularGaugeModule,
     SweetAlert2Module.forRoot(),
   ],

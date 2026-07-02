@@ -21,3 +21,23 @@ export function ConfirmSend(_title = "ยืนยันการส่งข้
     )
   })
 }
+export function Success(_title = "ส่งข้อมูลเสร็จสิ้น", _text = ' '): Promise<boolean> {
+  return new Promise(r => {
+    Swal.fire({
+      title: _title,
+      text: _text,
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonColor: '#347B4C',
+      confirmButtonText: 'ตกลง',
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        r(true);
+      } else {
+        r(false);
+      }
+    }
+    )
+  })
+}

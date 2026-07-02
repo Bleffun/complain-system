@@ -2,7 +2,7 @@ import { Syntax } from './../../../../node_modules/sass/types/options.d';
 import { HttpClient } from '@angular/common/http';
 import { CallApiService } from './../../shared/services/call-api.service';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { ConfirmSend } from '../../common/helper';
+import { ConfirmSend, Success } from '../../common/helper';
 import { Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import notify from 'devextreme/ui/notify';
@@ -49,7 +49,6 @@ export class CreateComplainComponent implements OnInit {
     this.data = await this.callapi.getAllUsers().toPromise();
     this._selectUser = this.data.body
     this._formdata.USER_ID = 0;
-    this._formdata.CREATE_DATE = new Date().toISOString();
   }
   async OnSend() {
     if (this.myform && this.myform.instance) {
@@ -61,7 +60,7 @@ export class CreateComplainComponent implements OnInit {
     }
     if (this._formdata.COM_IDCARD) {
       if (this._formdata.COM_IDCARD.length < 13 || this._formdata.COM_IDCARD == null) {
-        notify('รหัสบัตรให้ถูกต้อง', 'error', 2000);
+        notify('รหัสบัตรไม่ถูกต้อง', 'error', 2000);
         return;
       }
     }
@@ -69,7 +68,7 @@ export class CreateComplainComponent implements OnInit {
       COM_DETAIL: this._formdata.COM_DETAIL || "",
       COM_IDCARD: this._formdata.COM_IDCARD || "",
       COM_NAME: this._formdata.COM_NAME || "",
-      CREATE_DATE: this._formdata.CREATE_DATE || "",
+      CREATE_DATE: new Date().toISOString() || "",
       USER_ID: this._formdata.USER_ID || 0,
       COM_USER_DETAIL: this._formdata.COM_USER_DETAIL || "",
       COM_STATUS: "ส่งเรื่องร้องเรียน",
@@ -79,9 +78,11 @@ export class CreateComplainComponent implements OnInit {
     if (!isConfirm) {
       return;
     }
-    console.log(formDataToSend);
-
     await this.callapi.addComp(formDataToSend).toPromise();
+    const success = await Success();
+    if (!success) {
+      return;
+    }
     location.reload();
   }
   async OnBack() {

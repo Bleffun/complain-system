@@ -18,10 +18,10 @@ export class CallApiService {
   public getData() {
     return this.data;
   }
-  public setLog(logged:any){
+  public setLog(logged: any) {
     this.logged = logged;
   }
-  public getLog(){
+  public getLog() {
     return this.logged;
   }
 
@@ -49,6 +49,12 @@ export class CallApiService {
   public addComp(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + "CallApi/AddComplain", data, { headers: this.headers });
   }
+  public addRole(data: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + "CallApi/AddRole", data, { headers: this.headers });
+  }
+  public addEmp(data: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + "CallApi/AddEmployee", data, { headers: this.headers });
+  }
   // public changeStatus(id:number,data:any):Observable<any>{
   //   return req<any[]>("CallApi/"+id+"/Status")
   //   .body(data)
@@ -59,6 +65,14 @@ export class CallApiService {
   }
   public changeStatus2(id: number, data: any): Observable<any> {
     return this.http.put<any>(this.apiUrl + "CallApi/" + id + "/Status2", data, { headers: this.headers });
+  }
+  public getRole(role_id: number): Observable<any[]> {
+    return req<any[]>('CallApi/' + role_id + '/ROLE')
+      .get();
+  }
+  public getAllusername(): Observable<any[]> {
+    return req<any[]>('CallApi/AllUser')
+      .get();
   }
 }
 
