@@ -18,12 +18,6 @@ export class CallApiService {
   public getData() {
     return this.data;
   }
-  public setLog(logged: any) {
-    this.logged = logged;
-  }
-  public getLog() {
-    return this.logged;
-  }
 
   public getUser(id: any): Observable<any[]> {
     return req<any[]>('CallApi/' + id + '/CheckUser')
@@ -73,6 +67,16 @@ export class CallApiService {
   public getAllusername(): Observable<any[]> {
     return req<any[]>('CallApi/AllUser')
       .get();
+  }
+  public getSomeUser(id:number): Observable<any[]> {
+    return req<any[]>('CallApi/'+ id +'/User')
+      .get();
+  }
+  public DeleteUser(id: number, data: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl + "CallApi/" + id + "/DeleteUser", data, { headers: this.headers });
+  }
+  public EditUser(id: number, data: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl + "CallApi/" + id + "/EditUser", data, { headers: this.headers });
   }
 }
 

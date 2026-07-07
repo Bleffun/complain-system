@@ -14,13 +14,13 @@ export class GuestComListComponent implements OnInit {
   index = 0;
   constructor(private callapi: CallApiService, private router: Router) { }
   async ngOnInit() {
-    const idcard = this.callapi.getLog();
+    const idcard = this.callapi.getData();
     this.data = await this.callapi.getComplain(idcard).toPromise();
     this.complainList = this.ConvertDate(this.data.body);
     this.complainList = this.clearObjectValue(this.complainList)
   }
   OnEdit(e: any) {
-    this.callapi.setLog(e);
+    this.callapi.setData(e);
     this.index = 1;
   }
   OnBack() {

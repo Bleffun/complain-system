@@ -19,7 +19,7 @@ export class GuestLoginComponent implements OnInit {
   async onSubmit() {
     if (this.formData.IDCARD) {
       if (this.formData.IDCARD.length == 13) {
-        await this.callapi.setLog(this.formData.IDCARD);
+        await this.callapi.setData(this.formData.IDCARD);
         this.index = 1;
       } else {
         notify('กรุณากรอกให้ครบ', 'error', 2000);

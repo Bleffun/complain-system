@@ -2,7 +2,7 @@ import { Syntax } from './../../../../node_modules/sass/types/options.d';
 import { HttpClient } from '@angular/common/http';
 import { CallApiService } from './../../shared/services/call-api.service';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { ConfirmSend, Success } from '../../common/helper';
+import { Confirm, Success } from '../../common/helper';
 import { Route, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import notify from 'devextreme/ui/notify';
@@ -74,15 +74,12 @@ export class CreateComplainComponent implements OnInit {
       COM_STATUS: "ส่งเรื่องร้องเรียน",
       COM_EVIDENCE: this.base64String?.toString()
     };
-    const isConfirm = await ConfirmSend();
+    const isConfirm = await Confirm('ยืนยันการส่งข้อมูล','');
     if (!isConfirm) {
       return;
     }
     await this.callapi.addComp(formDataToSend).toPromise();
-    const success = await Success();
-    if (!success) {
-      return;
-    }
+    await Success('ส่งข้อมูลเสร็จสิ้น','');
     location.reload();
   }
   async OnBack() {

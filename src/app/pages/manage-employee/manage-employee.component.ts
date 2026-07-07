@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CallApiService } from '../../shared/services/call-api.service';
 import { Router } from '@angular/router';
+import { Confirm, Success } from '../../common/helper';
+import { InternalCache } from '../../shared/services/cache';
 
 
 @Component({
@@ -10,18 +12,27 @@ import { Router } from '@angular/router';
 })
 export class ManageEmployeeComponent {
   constructor(private callapi: CallApiService, private router: Router) { }
-  RoleList: any = [];
-  RoleList2: any = [];
+  UserList: any = [];
+  UserList2: any = [];
   async ngOnInit() {
-    this.RoleList = await this.callapi.getAllUsers().toPromise();
-    this.RoleList2 = this.ConvertDate(this.RoleList.body);
+    this.UserList = await this.callapi.getSomeUser(InternalCache.Get('roleId')).toPromise();
+    this.UserList2 = this.ConvertDate(this.UserList.body);
   }
   OnEdit(e: any) {
     this.callapi.setData(e);
-    this.router.navigate(['/ComplainList/' + e.COM_ID]);
+    this.router.navigate(['/ManageEmployee/' + e.USER_ID]);
   }
-  OnDelete(e:any){
-    console.log('event',e);
+  async OnDelete(e: any) {
+    const DeleteAlert = await Confirm('ยืนยันการลบผู้ใช้', '')
+    if (!DeleteAlert) {
+      return;
+    }
+    const DeletedUser = {
+      USER_DELETED: true
+    }
+    await this.callapi.DeleteUser(e.USER_ID, DeletedUser).toPromise();
+    await Success('ลบข้อมูลเสร็จสิ้น','');
+    location.reload();
   }
   ConvertDate(date: any) {
     const Newdate = date.map((item: any) => {
@@ -36,8 +47,8 @@ export class ManageEmployeeComponent {
           ...item,
           CREATE_DATE: `${day}/${month}/${thaiYear} ${hours}:${minutes}`
         };
-      }else{
-        return{
+      } else {
+        return {
           ...item,
           CREATE_DATE: '-'
         }

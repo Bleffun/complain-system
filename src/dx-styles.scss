@@ -111,5 +111,12 @@ html, body {
   height: 48px;
   min-width: 100px;
 }
+.alert-label {
+    .dx-field-item-label-text {
+      color: red ;
+      font-size: 17px ;
+      font-weight: bold;
+    }
+  }
 
 $side-panel-min-width: 60px;

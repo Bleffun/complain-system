@@ -2,8 +2,8 @@ import { InternalCache } from '../../shared/services/cache';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CallApiService } from './../../shared/services/call-api.service';
-import { ConfirmSend } from '../../common/helper';
 import Swal from 'sweetalert2';
+import { Confirm } from '../../common/helper';
 
 @Component({
   selector: 'app-complain-detail',
@@ -55,7 +55,7 @@ export class ComplainDetailComponent implements OnInit {
         confirmButtonText: "OK",
       })
     }
-    const isConfirmed = await ConfirmSend()
+    const isConfirmed = await Confirm('ยืนยันการส่ง','')
     if (!isConfirmed) {
       return;
     }
@@ -67,11 +67,12 @@ export class ComplainDetailComponent implements OnInit {
 
   }
   async OnSubmit() {
-    const isConfirmed = await ConfirmSend()
+    const isConfirmed = await Confirm('ยืนยันการส่ง','')
     if (!isConfirmed) {
       return;
     }
     const sendata = {
+      COM_STATUS: 'ผู้รับผิดชอบรับรู้',
       COM_STATUS2: 'พนักงานรับทราบแล้ว'
     }
     await this.callapi.changeStatus2(this._formdata.COM_ID, sendata).toPromise();

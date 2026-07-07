@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallApiService } from '../../shared/services/call-api.service';
 import { DxFormComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
-import { ConfirmSend, Success } from '../../common/helper';
+import { Confirm, Success } from '../../common/helper';
 import { InternalCache } from '../../shared/services/cache';
 
 @Component({
@@ -34,8 +34,8 @@ export class CreateEmployeeComponent {
         return item;
       }
     })
-    if(checksameuser.length >= 1){
-      notify('Username ซ้ำ','error',3000);
+    if (checksameuser.length >= 1) {
+      notify('Username ซ้ำ', 'error', 3000);
       return;
     }
     if (this.myform && this.myform.instance) {
@@ -54,26 +54,23 @@ export class CreateEmployeeComponent {
         return item;
       }
     })
-    const isConfirm = await ConfirmSend();
+    const isConfirm = await Confirm('ยืนยันการสร้างบัญชี', '');
     if (!isConfirm) {
       this.data = await this.callapi.getRole(InternalCache.Get('roleId')).toPromise();
-    this._selectRole = this.data.body;
+      this._selectRole = this.data.body;
       return;
     }
     if (newrole.length == 0) {
       const newroletosend = {
         ROLE_NAME: this.formData.ROLE_NAME
       }
-      this.callapi.addRole(newroletosend).toPromise();
+      await this.callapi.addRole(newroletosend).toPromise();
       this.newRoledata = this.addnewdata(this._selectRole.length + 1);
     } else {
       this.newRoledata = this.addnewdata(newrole[0].ROLE_ID);
     }
-    this.callapi.addEmp(this.newRoledata).toPromise();
-    const success = await Success();
-    if (!success) {
-      return;
-    }
+    await this.callapi.addEmp(this.newRoledata).toPromise();
+    await Success('สร้างข้อมูลเสร็จสิ้น','');
     location.reload();
   }
   addnewdata(ROLE_ID: any) {

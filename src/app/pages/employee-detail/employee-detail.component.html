@@ -1,0 +1,97 @@
+<div class="grid-container">
+  <div class="container-fluid">
+    <div class="mt-3">
+      <div class="card">
+        <dx-button
+          class="btn-back"
+          text="ย้อนกลับ"
+          (onClick)="OnBack()"
+        ></dx-button>
+        <dx-form #myform [formData]="_formdata">
+          <dxi-item
+            dataField="USER_NAME"
+            editorType="dxTextBox"
+            [editorOptions]="{
+              readOnly: true,
+            }"
+          >
+            <dxi-validation-rule
+              type="required"
+              message="กรุณากรอกUSERNAME"
+            ></dxi-validation-rule>
+            <dxi-validation-rule
+              type="pattern"
+              pattern="^[a-zA-Z0-9 ]*$"
+              message="กรุณาพิมพ์ภาษาอังกฤษหรือตัวเลขเท่านั้น"
+            ></dxi-validation-rule>
+            <dxo-label text="Username"></dxo-label>
+          </dxi-item>
+          <dxi-item dataField="USER_FULLNAME" editorType="dxTextBox">
+            <dxi-validation-rule
+              type="required"
+              message="กรุณากรอกUSERNAME"
+            ></dxi-validation-rule>
+            <dxo-label text="ชื่อ-สกุล"></dxo-label>
+          </dxi-item>
+          <dxi-item [colSpan]="2" cssClass="alert-label">
+            <dxo-label text="*ถ้าไม่ต้องการเปลี่ยนรหัสผ่านให้ปล่อยค่าว่าง"></dxo-label>
+          </dxi-item>
+          <dxi-item
+            dataField="USER_PASS_NEW"
+            editorType="dxTextBox"
+            [editorOptions]="{
+              mode: 'password',
+            }"
+          >
+            <dxo-label text="รหัสผ่าน"></dxo-label>
+          </dxi-item>
+          <dxi-item
+            dataField="USER_PASS_CONFIRM"
+            editorType="dxTextBox"
+            [editorOptions]="{
+              mode: 'password',
+            }"
+          >
+
+            <dxo-label text="ยืนยันรหัสผ่าน"></dxo-label>
+          </dxi-item>
+          <dxi-item
+            [colSpan]="2"
+            dataField="ROLE_NAME"
+            editorType="dxAutocomplete"
+            [editorOptions]="{
+              dataSource: _selectRole,
+              valueExpr: 'ROLE_NAME',
+              placeholder: 'เลือกตำแหน่งงาน หรือพิมพ์กรอกตำแหน่งใหม่...',
+              minSearchLength: 0,
+              showDropDownButton: true,
+            }"
+          >
+            <dxi-validation-rule
+              type="required"
+              message="กรุณาเลือกหรือกรอกตำแหน่ง"
+            ></dxi-validation-rule>
+            <dxo-label text="ตำแหน่ง"></dxo-label>
+          </dxi-item>
+          <dxi-item template="btnSignIn" [colSpan]="2">
+            <div
+              *dxTemplate="let data of 'btnSignIn'"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-left: 85%;
+              "
+            >
+              <dx-button
+                text="อัพเดทข้อมูล"
+                class="btn-add"
+                (onClick)="OnEdit()"
+              ></dx-button>
+            </div>
+          </dxi-item>
+        </dx-form>
+      </div>
+    </div>
+  </div>
+</div>

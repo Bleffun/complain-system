@@ -17,6 +17,7 @@ import { GuestComListComponent } from './pages/guest-com-list/guest-com-list.com
 import { GuestLoginComponent } from './pages/guest-login/guest-login.component';
 import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
 import { ManageEmployeeComponent } from './pages/manage-employee/manage-employee.component';
+import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'History', component: ComHistoryComponent },
       { path: 'History/:USER_ID', component: ComHistoryDetailComponent },
       { path: 'CreateEmployee', component: CreateEmployeeComponent },
-      { path: 'ManageEmployee',component:ManageEmployeeComponent}
+      { path: 'ManageEmployee', component: ManageEmployeeComponent },
+      { path: 'ManageEmployee/:USER_ID', component: EmployeeDetailComponent }
     ]
   },
   { path: 'guest', component: GuestListComponent },

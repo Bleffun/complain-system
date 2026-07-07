@@ -22,6 +22,7 @@ import { GuestLoginComponent } from './pages/guest-login/guest-login.component';
 import { GuestListDetailComponent } from './pages/guest-list-detail/guest-list-detail.component';
 import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
 import { ManageEmployeeComponent } from './pages/manage-employee/manage-employee.component';
+import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ManageEmployeeComponent } from './pages/manage-employee/manage-employee
     CreateEmployeeComponent,
     CreateEmployeeComponent,
     ManageEmployeeComponent,
+    EmployeeDetailComponent,
   ],
   imports: [
     BrowserModule,

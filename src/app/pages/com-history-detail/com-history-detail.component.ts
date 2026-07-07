@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CallApiService } from './../../shared/services/call-api.service';
 import { InternalCache } from './../../shared/services/cache';
-import { ConfirmSend } from '../../common/helper';
 
 @Component({
   selector: 'app-com-history-detail',

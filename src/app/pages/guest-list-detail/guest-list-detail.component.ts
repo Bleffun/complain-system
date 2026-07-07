@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmSend } from '../../common/helper';
 import { Router } from '@angular/router';
 import { CallApiService } from './../../shared/services/call-api.service';
 import { InternalCache } from './../../shared/services/cache';
@@ -21,13 +20,13 @@ export class GuestListDetailComponent implements OnInit {
   async ngOnInit() {
     this.data = await this.callapi.getAllUsers().toPromise();
     this._selectUser = this.data.body;
-    this._formdata = this.callapi.getLog();
+    this._formdata = this.callapi.getData();
     if (typeof this._formdata.COM_EVIDENCE !== 'object') {
       this._visible = true;
     }
   }
   OnBack(e: any) {
-    this.callapi.setLog(e);
+    this.callapi.setData(e);
     this.index = 1;
   }
   downloadFile(base64Data: string) {

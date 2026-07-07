@@ -1,6 +1,6 @@
 import Swal from "sweetalert2"
 
-export function ConfirmSend(_title = "ยืนยันการส่งข้อมูล", _text = ' '): Promise<boolean> {
+export function Confirm(_title:string, _text:string): Promise<boolean> {
   return new Promise(r => {
     Swal.fire({
       title: _title,
@@ -21,7 +21,7 @@ export function ConfirmSend(_title = "ยืนยันการส่งข้
     )
   })
 }
-export function Success(_title = "ส่งข้อมูลเสร็จสิ้น", _text = ' '): Promise<boolean> {
+export function Success(_title:string, _text:string): Promise<boolean> {
   return new Promise(r => {
     Swal.fire({
       title: _title,
