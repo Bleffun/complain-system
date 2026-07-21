@@ -1,6 +1,6 @@
 import notify from 'devextreme/ui/notify';
 import { Component, OnInit } from '@angular/core';
-import { CallApiService } from './../../shared/services/call-api.service';
+import { CallApiService } from '../../shared/services/api/call-api.service';
 import { Router } from '@angular/router';
 
 @Component({

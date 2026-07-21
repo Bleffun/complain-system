@@ -11,7 +11,7 @@ import { DxAutocompleteModule, DxButtonModule, DxCheckBoxModule, DxCircularGauge
 import { ActionComponent } from './action/action.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CreateComplainComponent } from './pages/create-complain/create-complain.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GuestListComponent } from './pages/guest-list/guest-list.component';
 import { ComplainListComponent } from './pages/complain-list/complain-list.component';
 import { ComplainDetailComponent } from './pages/complain-detail/complain-detail.component';
@@ -23,6 +23,7 @@ import { GuestListDetailComponent } from './pages/guest-list-detail/guest-list-d
 import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
 import { ManageEmployeeComponent } from './pages/manage-employee/manage-employee.component';
 import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
+import { AuthInterceptor } from './shared/Interceptors/auth.Interceptor';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,11 @@ import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail
     AuthService,
     ScreenService,
     AppInfoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

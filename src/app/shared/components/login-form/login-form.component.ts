@@ -5,9 +5,9 @@ import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
 import notify from 'devextreme/ui/notify';
 import { AuthService } from '../../services';
-import { CallApiService } from '../../services/call-api.service';
+import { CallApiService } from '../../services/api/call-api.service';
 import Swal from 'sweetalert2';
-import { InternalCache } from '../../services/cache';
+import { Cache } from '../../services/cache';
 
 
 @Component({
@@ -36,9 +36,9 @@ export class LoginFormComponent {
     // if (this.UserDB) {
     //   if (username == this.UserDB.USER_NAME && password == this.UserDB.USER_PASS) {
     //     this.loading = true;
-    //     // InternalCache.Set("Username",this.UserDB.USER_NAME);
-    //     // InternalCache.Set("Name",this.UserDB.USER_FULLNAME);
-    //     // InternalCache.Set("UserID",this.UserDB.USER_ID);
+    //     // Cache.Set("Username",this.UserDB.USER_NAME);
+    //     // Cache.Set("Name",this.UserDB.USER_FULLNAME);
+    //     // Cache.Set("UserID",this.UserDB.USER_ID);
     const result = await this.authService.logIn(username, password);
     if (!result.isOk) {
       this.loading = false;

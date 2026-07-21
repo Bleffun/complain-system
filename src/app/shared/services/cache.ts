@@ -1,5 +1,5 @@
 
-export class InternalCache {
+export class Cache {
   public static Set(key: string, value: string): void {
     localStorage.setItem(key, value);
   }

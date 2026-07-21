@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CallApiService } from '../../shared/services/call-api.service';
-import { InternalCache } from '../../shared/services/cache';
+import { CallApiService } from '../../shared/services/api/call-api.service';
+import { Cache } from '../../shared/services/cache';
 import { DxFormComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
 import { Confirm, Success } from '../../common/helper';
@@ -20,7 +20,7 @@ export class EmployeeDetailComponent {
   data: any = {};
   newRoledata: any = {};
   async ngOnInit() {
-    this.data = await this.callapi.getRole(InternalCache.Get('roleId')).toPromise();
+    this.data = await this.callapi.getRole(Cache.Get('roleId')).toPromise();
     this._selectRole = this.data.body;
     if (this.callapi.getData() == "") {
       this.router.navigate(['/ManageEmployee'])
@@ -74,7 +74,6 @@ export class EmployeeDetailComponent {
       this._formdata.USER_PASS_NEW = this._formdata.USER_PASS
     }
     const formDataToSend = {
-      USER_NAME: this._formdata.USER_NAME || "",
       USER_FULLNAME: this._formdata.USER_FULLNAME || "",
       USER_PASS: this._formdata.USER_PASS_NEW || "",
       ROLE_ID: ROLE_ID || 0,

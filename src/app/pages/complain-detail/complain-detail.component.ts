@@ -1,7 +1,7 @@
-import { InternalCache } from '../../shared/services/cache';
+import { Cache } from '../../shared/services/cache';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CallApiService } from './../../shared/services/call-api.service';
+import { CallApiService } from '../../shared/services/api/call-api.service';
 import Swal from 'sweetalert2';
 import { Confirm } from '../../common/helper';
 
@@ -21,7 +21,7 @@ export class ComplainDetailComponent implements OnInit {
   constructor(private router: Router, private callapi: CallApiService) { }
 
   async ngOnInit() {
-    const roleid = InternalCache.Get("roleId");
+    const roleid = Cache.Get("roleId");
     if (roleid <= 2) {
       this._readOnly = false;
       this._visible = true;

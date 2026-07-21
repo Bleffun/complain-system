@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2'
-import { CallApiService } from '../shared/services/call-api.service';
+import { CallApiService } from '../shared/services/api/call-api.service';
 
 // or via CommonJS
 

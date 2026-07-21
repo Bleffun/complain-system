@@ -1,6 +1,6 @@
 import { Syntax } from './../../../../node_modules/sass/types/options.d';
 import { HttpClient } from '@angular/common/http';
-import { CallApiService } from './../../shared/services/call-api.service';
+import { CallApiService } from '../../shared/services/api/call-api.service';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Confirm, Success } from '../../common/helper';
 import { Route, Router } from '@angular/router';

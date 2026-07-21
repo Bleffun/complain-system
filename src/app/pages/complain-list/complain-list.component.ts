@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { CallApiService } from './../../shared/services/call-api.service';
-import { InternalCache } from './../../shared/services/cache';
+import { CallApiService } from '../../shared/services/api/call-api.service';
+import { Cache } from './../../shared/services/cache';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -14,7 +14,7 @@ export class ComplainListComponent implements OnInit {
   constructor(private callapi: CallApiService, private router: Router) { }
   @Input() idcard: any;
   async ngOnInit() {
-    const username = InternalCache.Get("UserID");
+    const username = Cache.Get("UserID");
     if (username) {
       this.data = await this.callapi.getComplain(username).toPromise();
     } else {

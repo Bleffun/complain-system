@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CallApiService } from '../../shared/services/call-api.service';
+import { CallApiService } from '../../shared/services/api/call-api.service';
 import { Router } from '@angular/router';
 import { Confirm, Success } from '../../common/helper';
-import { InternalCache } from '../../shared/services/cache';
+import { Cache } from '../../shared/services/cache';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class ManageEmployeeComponent {
   UserList: any = [];
   UserList2: any = [];
   async ngOnInit() {
-    this.UserList = await this.callapi.getSomeUser(InternalCache.Get('roleId')).toPromise();
+    this.UserList = await this.callapi.getSomeUser(Cache.Get('roleId')).toPromise();
     this.UserList2 = this.ConvertDate(this.UserList.body);
   }
   OnEdit(e: any) {

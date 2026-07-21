@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CallApiService } from '../../shared/services/call-api.service';
+import { CallApiService } from '../../shared/services/api/call-api.service';
 import { DxFormComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
 import { Confirm, Success } from '../../common/helper';
-import { InternalCache } from '../../shared/services/cache';
+import { Cache } from '../../shared/services/cache';
 
 @Component({
   selector: 'app-create-employee',
@@ -21,7 +21,7 @@ export class CreateEmployeeComponent {
   checkUser: any = {};
   constructor(private callapi: CallApiService) { }
   async ngOnInit() {
-    this.data = await this.callapi.getRole(InternalCache.Get('roleId')).toPromise();
+    this.data = await this.callapi.getRole(Cache.Get('roleId')).toPromise();
     this._selectRole = this.data.body;
   }
   async onSubmit() {
@@ -56,7 +56,7 @@ export class CreateEmployeeComponent {
     })
     const isConfirm = await Confirm('ยืนยันการสร้างบัญชี', '');
     if (!isConfirm) {
-      this.data = await this.callapi.getRole(InternalCache.Get('roleId')).toPromise();
+      this.data = await this.callapi.getRole(Cache.Get('roleId')).toPromise();
       this._selectRole = this.data.body;
       return;
     }

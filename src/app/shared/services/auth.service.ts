@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { CallApiService } from '../services/call-api.service';
-import { InternalCache } from '../services/cache';
-
+import { CallApiService } from './api/call-api.service';
+import { Cache } from '../services/cache';
+import { AuthApiService } from './api/auth-api.service';
 
 const defaultPath = '/';
 
@@ -14,7 +14,7 @@ export class AuthService {
     this.logOut();
   }
   get loggedIn(): boolean {
-    this._user = InternalCache.Get('fullname');
+    this._user = Cache.Get('fullname');
     return !!this._user;
   }
   private _lastAuthenticatedPath: string = defaultPath;
@@ -22,19 +22,28 @@ export class AuthService {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router, private CallApi: CallApiService) { }
+  constructor(private router: Router, private CallApi: CallApiService, private AuthApi: AuthApiService) { }
 
   async logIn(username: string, password: string) {
     // Send request
-    this.checkData = await this.CallApi.getUser(username).toPromise() || null;
-    this.checkData = this.checkData.body[0];
-    if (this.checkData) {
+    const UandP = {
+      username: username,
+      password: password
+    };
+    this.AuthApi.Login(UandP).subscribe(req => {
+      Cache.Set('accesstoken', req.AccessToken);
+      Cache.Set('Refreshtoken', req.RefreshToken);
+    });
+
+    if (Cache.Get('Refreshtoken')) {
       if ((this.checkData.USER_NAME == username) && (this.checkData.USER_PASS == password)) {
-        InternalCache.Set('username', this.checkData.USER_NAME);
-        InternalCache.Set('fullname', this.checkData.USER_FULLNAME);
-        InternalCache.Set('role', this.checkData.ROLE_NAME);
-        InternalCache.Set('UserID', this.checkData.USER_ID);
-        InternalCache.Set('roleId', this.checkData.ROLE_ID);
+        this.checkData = await this.CallApi.getUser(username).toPromise() || null;
+        this.checkData = this.checkData.body[0];
+        Cache.Set('username', this.checkData.USER_NAME);
+        Cache.Set('fullname', this.checkData.USER_FULLNAME);
+        Cache.Set('role', this.checkData.ROLE_NAME);
+        Cache.Set('UserID', this.checkData.USER_ID);
+        Cache.Set('roleId', this.checkData.ROLE_ID);
       }
     } else {
       return {
@@ -118,7 +127,7 @@ export class AuthService {
 
   async logOut() {
     this._user = null;
-    InternalCache.ClearCache();
+    Cache.ClearCache();
     this.router.navigate(['/login-form']);
   }
 }

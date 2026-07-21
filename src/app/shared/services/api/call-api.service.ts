@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { req } from './request-api.service';
+import { req } from '../request-api.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
